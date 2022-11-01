@@ -8,7 +8,7 @@ public class Guest {
     String Lastname; //Фамилия
     String Firstname; //Имя
     String Secendname; //Отчество
-    String email;
-    Date Birthday;
+    String email; //Почта
+    Date Birthday; //Дата рождения
 
 }
