@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Гости</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>Данные гостя</h1>
+    <form th:action="@{/CreateGuest}"
+          th:object="${guestform}" method="POST">
+        <p>Фамилия
+            <input type="text" th:field="*{Lastname}"/>
+        </p>
+        <p>Имя
+            <input type="text" th:field="*{Firstname}"/>
+        </p>
+    </form>
+</div>
+</body>
+</html>
