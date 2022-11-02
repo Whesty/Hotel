@@ -4,7 +4,7 @@ public class Worker {
     int Id;
     String Name;
     String Surname;
-    String Patronymic; // Отчество
+    String Secendname; // Отчество
     String Position; // Должность
     String Phone;
     String Email;

@@ -2,7 +2,7 @@ package com.example.hotel.model;
 
 public class User {
     int Id;
-    int IdWorker;
+    User user;
     String Password;
     byte IsAdmin;
 }

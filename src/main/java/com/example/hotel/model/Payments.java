@@ -5,8 +5,7 @@ import java.util.Date;
 // Выплата
 public class Payments {
     int Id;
-    int IdWorker; // Id работника
-    float Hours; // Количество часов
+    Worker worker; // Сотрудник
     float Prize; // Премия
     float Salary; // Зарплата
     int Month; // Месяц

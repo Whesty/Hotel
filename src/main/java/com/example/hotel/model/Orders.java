@@ -5,9 +5,9 @@ import java.util.Date;
 // Заказы
 public class Orders {
     int Id; // Идентификатор
-    int IdGuest; // Идентификатор пользователя
-    int IdService; // Идентификатор номера
+    Guest guest; // Гость сделавший заказ
+    Service service; // номер
     Date DateOrders; // Дата заказа
     Date DateService; // Дата обслуживания
-    int IdWorker; // Идентификатор сотрудника
+    Worker worker; // сотрудник
 }

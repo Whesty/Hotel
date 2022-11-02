@@ -3,6 +3,6 @@ package com.example.hotel.model;
 public class Room {
     int Id;
     int Number;
-    int IdTypeRooms;
+    TypeRooms typeRooms; // Тип номера
     int CountPlaces; // Количество мест
 }
