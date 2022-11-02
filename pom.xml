@@ -5,37 +5,29 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.5</version>
+        <version>2.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>Hotel</artifactId>
+    <groupId>com.lazy</groupId>
+    <artifactId>springbooks</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Hotel</name>
-    <description>Hotel</description>
+    <name>springbooks</name>
+    <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
-        <repackage.classifier/>
-        <spring-native.version>0.12.1</spring-native.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-graphql</artifactId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.5.4</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web-services</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.experimental</groupId>
-            <artifactId>spring-native</artifactId>
-            <version>${spring-native.version}</version>
-        </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,9 +36,9 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -57,21 +49,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.graphql</groupId>
-            <artifactId>spring-graphql-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring5</artifactId>
-            <version>3.0.15.RELEASE</version>
         </dependency>
     </dependencies>
 
@@ -87,88 +64,9 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <classifier>${repackage.classifier}</classifier>
-                    <image>
-                        <builder>paketobuildpacks/builder:tiny</builder>
-                        <env>
-                            <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
-                        </env>
-                    </image>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.experimental</groupId>
-                <artifactId>spring-aot-maven-plugin</artifactId>
-                <version>${spring-native.version}</version>
-                <executions>
-                    <execution>
-                        <id>test-generate</id>
-                        <goals>
-                            <goal>test-generate</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
-    <repositories>
-        <repository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-releases</id>
-            <name>Spring Releases</name>
-            <url>https://repo.spring.io/release</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <profiles>
-        <profile>
-            <id>native</id>
-            <properties>
-                <repackage.classifier>exec</repackage.classifier>
-                <native-buildtools.version>0.9.13</native-buildtools.version>
-            </properties>
-            <dependencies>
-                <dependency>
-                    <groupId>org.junit.platform</groupId>
-                    <artifactId>junit-platform-launcher</artifactId>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>
-                                    <groupId>org.projectlombok</groupId>
-                                    <artifactId>lombok</artifactId>
-                                </exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

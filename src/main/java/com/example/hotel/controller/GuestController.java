@@ -32,7 +32,7 @@ public class GuestController {
 @PostMapping(value = {"/CreateGuest"})
     public ModelAndView SaveGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm){
     ModelAndView modelAndView = new ModelAndView();
-    modelAndView.setViewName("ReserveRoom");
+    modelAndView.setViewName("index");
     int id = guests.size();
     String Lastname = guestForm.getLastname();
     String Firstname = guestForm.getFirstname();
@@ -46,6 +46,7 @@ public class GuestController {
         Guest newGuest = new Guest(id, Lastname, Firstname, Secendname, email, birthday);
         guests.add(newGuest);
         model.addAttribute("guests", guests);
+        log.info("Add Guest");
         return modelAndView;
     }
     model.addAttribute("errorMessage", "Error");

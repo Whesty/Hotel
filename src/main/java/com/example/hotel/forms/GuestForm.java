@@ -11,10 +11,10 @@ import java.util.Date;
 @NoArgsConstructor
 public class GuestForm {
     private int Id;
-    private String Lastname; //Фамилия
-    private String Firstname; //Имя
-    private String Secendname; //Отчество
+    private String lastname; //Фамилия
+    private String firstname; //Имя
+    private String secendname; //Отчество
     private String email; //Почта
-    private Date Birthday; //Дата рождения
+    private Date birthday; //Дата рождения
 
 }

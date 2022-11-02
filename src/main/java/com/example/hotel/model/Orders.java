@@ -4,10 +4,10 @@ import java.util.Date;
 
 // Заказы
 public class Orders {
-    int Id; // Идентификатор
+    int id; // Идентификатор
     Guest guest; // Гость сделавший заказ
     Service service; // номер
-    Date DateOrders; // Дата заказа
-    Date DateService; // Дата обслуживания
+    Date dateOrders; // Дата заказа
+    Date dateService; // Дата обслуживания
     Worker worker; // сотрудник
 }

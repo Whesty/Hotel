@@ -9,13 +9,23 @@
 <div class="container">
     <h1>Данные гостя</h1>
     <form th:action="@{/CreateGuest}"
-          th:object="${guestform}" method="POST">
+          th:object="${guestform}" method="post">
         <p>Фамилия
-            <input type="text" th:field="*{Lastname}"/>
+            <input type="text" th:field="*{lastname}"/>
         </p>
         <p>Имя
-            <input type="text" th:field="*{Firstname}"/>
+            <input type="text" th:field="*{firstname}"/>
         </p>
+        <p>Отчество
+            <input type="text" th:field="*{secendname}"/>
+        </p>
+        <p>Дата рождения
+            <input type="Date" th:field="*{birthday}"/>
+        </p>
+        <p>email
+            <input type="text" th:field="*{email}"/>
+        </p>
+        <input class="button-main-page" type="submit" value="Add"/>
     </form>
 </div>
 </body>
