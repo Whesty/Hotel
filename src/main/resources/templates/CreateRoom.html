@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Создание комнат</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+ <form th:action="@{/CreateRoom}" th:object="${roomform}" method="post">
+   <table>
+     <tr>
+       <td>Номер комнаты</td>
+       <td><input type="text" th:field="*{number}"/></td>
+     </tr>
+     <tr>
+       <td>Количество мест</td>
+       <td><input type="text" th:field="*{countPlaces}"/></td>
+     </tr>
+     <tr>
+       <td>Цена</td>
+       <td><input type="text" th:field="*{price}"/></td>
+     </tr>
+     <tr>
+       <td>Описание</td>
+       <td><input type="text" th:field="*{typeRooms}"/></td>
+     </tr>
+     <tr>
+       <td><input type="submit" value="Создать"/></td>
+     </tr>
+   </table>
+   </form>
+</body>
+</html>
