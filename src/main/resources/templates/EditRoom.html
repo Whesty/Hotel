@@ -20,15 +20,19 @@
       <tr>
         <td>Тип комнаты</td>
         <td>
-          <form:select th:path="*{typeRooms}" th:content="${typeroomList}"/>
-
+          <select th:field="*{idTypeRooms}">
+            <option th:each="typerooms : ${typeroomList}" th:value="${typerooms.id}" th:text="${typerooms.name}"></option>
+          </select>
         </td>
       </tr>
-      <tr>
-        <td><input type="submit" value="Изменить"/></td>
+        <tr>
+        <td><input class="button-main-page" type="submit" value="Изменить"/></td>
       </tr>
     </table>
     </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
 </div>
 </body>
 </html>

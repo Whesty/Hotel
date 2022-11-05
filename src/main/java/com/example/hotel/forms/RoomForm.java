@@ -12,6 +12,7 @@ public class RoomForm {
 private int Id;
     private int Number;
     private TypeRooms typeRooms; // Тип номера
+    private int idTypeRooms;
     private int CountPlaces; // Количество мест
     private float Price; // Цена
 }

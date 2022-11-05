@@ -1,6 +1,5 @@
 package com.example.hotel.controller;
 
-import com.example.hotel.forms.GuestForm;
 import com.example.hotel.forms.RoomForm;
 import com.example.hotel.model.Room;
 import com.example.hotel.model.TypeRooms;
@@ -8,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,11 +22,11 @@ public class RoomController {
     static {
         rooms.add(new Room(0, 1, new TypeRooms(1, "top", "super top", 200), 2));
     }
-    private static List<TypeRooms> typeRooms = new ArrayList<TypeRooms>();
+    private static List<TypeRooms> typerooms = new ArrayList<TypeRooms>();
     static {
-        typeRooms.add(new TypeRooms(1, "top", "super top", 200));
-        typeRooms.add(new TypeRooms(2, "middle", "middle", 100));
-        typeRooms.add(new TypeRooms(3, "low", "low", 50));
+        typerooms.add(new TypeRooms(1, "top", "super top", 200));
+        typerooms.add(new TypeRooms(2, "middle", "middle", 100));
+        typerooms.add(new TypeRooms(3, "low", "low", 50));
     }
     //Вызов формы создания номера
     @GetMapping(value = {"/CreateRoom"})
@@ -65,7 +63,7 @@ public class RoomController {
         ModelAndView modelAndView = new ModelAndView("EditRoom");
         RoomForm roomForm = new RoomForm();
         roomForm.setId(Integer.parseInt(id));
-        modelAndView.addObject("typeroomList", typeRooms);
+        modelAndView.addObject("typeroomList", typerooms);
         roomForm.setNumber(rooms.get(Integer.parseInt(id)).getNumber());
         roomForm.setCountPlaces(rooms.get(Integer.parseInt(id)).getCountPlaces());
         model.addAttribute("roomform", roomForm);
@@ -74,7 +72,7 @@ public class RoomController {
         return modelAndView;
     }
     //Редактирование номера
-    @PostMapping(value = {"/EditRoom"})
+    @PostMapping(value = {"/EditRoom/{id}"})
     public ModelAndView EditRoom(Model model, @ModelAttribute("roomform") RoomForm roomForm, @ModelAttribute("id") String id){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
