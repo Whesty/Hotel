@@ -33,6 +33,7 @@ public class RoomController {
     public ModelAndView SaveRoom(Model model){
         ModelAndView modelAndView = new ModelAndView("CreateRoom");
         RoomForm roomForm = new RoomForm();
+        modelAndView.addObject("typeroomList", typerooms);
         model.addAttribute("roomform", roomForm);
         log.info("/CreateRoom was called");
         return modelAndView;
@@ -44,7 +45,7 @@ public class RoomController {
         modelAndView.setViewName("index");
         int id = rooms.size();
         int number = roomForm.getNumber();
-        TypeRooms typeRooms = roomForm.getTypeRooms();
+        TypeRooms typeRooms = typerooms.get(roomForm.getIdTypeRooms());
         int countPlaces = roomForm.getCountPlaces();
         if (number != 0 && typeRooms != null && countPlaces != 0) {
             Room newRoom = new Room(id, number, typeRooms, countPlaces);

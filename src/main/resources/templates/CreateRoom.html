@@ -17,12 +17,12 @@
        <td><input type="text" th:field="*{countPlaces}"/></td>
      </tr>
      <tr>
-       <td>Цена</td>
-       <td><input type="text" th:field="*{price}"/></td>
-     </tr>
-     <tr>
-       <td>Описание</td>
-       <td><input type="text" th:field="*{typeRooms}"/></td>
+       <td>Тип номера</td>
+       <td>
+       <select th:field="*{idTypeRooms}">
+         <option th:each="typerooms : ${typeroomList}" th:value="${typerooms.id}" th:text="${typerooms.name}"></option>
+       </select>
+       </td>
      </tr>
      <tr>
        <td><input type="submit" value="Создать"/></td>

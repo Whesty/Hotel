@@ -1,15 +1,30 @@
 package com.example.hotel.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 // Бронь
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class Reservation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @OneToOne
     User user; // Идентификатор пользователя который создал бронь
+    @OneToOne
     Room room; // Идентификатор номера
+    @OneToOne
     Guest guest; // Идентификатор гостя который забронировал номер
     Date dateIn; // Дата заезда
     Date dateOut; // Дата выезда
+    @ManyToMany
     List<Guest> guests; // Список гостей для которых забронировали номер
 }
