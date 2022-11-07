@@ -3,7 +3,10 @@ package com.example.hotel.controller;
 import com.example.hotel.forms.RoomForm;
 import com.example.hotel.model.Room;
 import com.example.hotel.model.TypeRooms;
+import com.example.hotel.repository.RoomRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
@@ -18,6 +21,12 @@ import java.util.List;
 @RequestMapping
 public class RoomController {
     // Список номеров
+   /* @Autowired
+    private RoomRepository roomRepository;
+    public @ResponseBody List<Room> getRooms(){
+        return roomRepository.findAll();
+    }
+*/
     private static List<Room> rooms = new ArrayList<Room>();
     static {
         rooms.add(new Room(0, 1, new TypeRooms(1, "top", "super top", 200), 2));

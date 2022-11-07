@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomForm {
-private int Id;
+private Integer Id;
     private int Number;
     private TypeRooms typeRooms; // Тип номера
     private int idTypeRooms;

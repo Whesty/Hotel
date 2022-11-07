@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int Id;
+    Integer Id;
     int Number;
     //Наследование типов номеров из таблицы TypeRooms
     @OneToOne

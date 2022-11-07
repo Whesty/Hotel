@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class TypeRooms {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int Id;
+    Integer Id;
     String Name;
     String Description;
     int Price;
