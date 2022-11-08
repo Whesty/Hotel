@@ -3,9 +3,8 @@ package com.example.hotel.controller;
 import com.example.hotel.forms.RoomForm;
 import com.example.hotel.model.Room;
 import com.example.hotel.model.TypeRooms;
-import com.example.hotel.repository.RoomRepository;
+import com.example.hotel.services.RoomServices;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,24 +18,28 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping
+@ComponentScan("com.example.hotel.repository")
 public class RoomController {
     // Список номеров
-   /* @Autowired
-    private RoomRepository roomRepository;
-    public @ResponseBody List<Room> getRooms(){
-        return roomRepository.findAll();
-    }
-*/
-    private static List<Room> rooms = new ArrayList<Room>();
-    static {
+
+private final RoomServices roomServices;
+
+    //private static List<Room> rooms = new ArrayList<>();
+    /*static {
         rooms.add(new Room(0, 1, new TypeRooms(1, "top", "super top", 200), 2));
-    }
+    }*/
     private static List<TypeRooms> typerooms = new ArrayList<TypeRooms>();
     static {
         typerooms.add(new TypeRooms(1, "top", "super top", 200));
         typerooms.add(new TypeRooms(2, "middle", "middle", 100));
         typerooms.add(new TypeRooms(3, "low", "low", 50));
     }
+
+    public RoomController(RoomServices roomServices) {
+        this.roomServices = roomServices;
+    }
+
+
     //Вызов формы создания номера
     @GetMapping(value = {"/CreateRoom"})
     public ModelAndView SaveRoom(Model model){
@@ -52,13 +55,16 @@ public class RoomController {
     public ModelAndView SaveRoom(Model model, @ModelAttribute("roomform") RoomForm roomForm){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
-        int id = rooms.size();
+        int id = roomServices.getRooms().size();
+        //int id = rooms.size();
         int number = roomForm.getNumber();
-        TypeRooms typeRooms = typerooms.get(roomForm.getIdTypeRooms());
+        int idtype = roomForm.getIdTypeRooms();
+        TypeRooms typeRooms = typerooms.get(idtype-1);
         int countPlaces = roomForm.getCountPlaces();
         if (number != 0 && typeRooms != null && countPlaces != 0) {
             Room newRoom = new Room(id, number, typeRooms, countPlaces);
-            rooms.add(newRoom);
+            roomServices.saveRoom(newRoom);
+            List<Room> rooms = roomServices.getRooms();
             model.addAttribute("rooms", rooms);
             log.info("Add Room");
             return modelAndView;
@@ -74,8 +80,8 @@ public class RoomController {
         RoomForm roomForm = new RoomForm();
         roomForm.setId(Integer.parseInt(id));
         modelAndView.addObject("typeroomList", typerooms);
-        roomForm.setNumber(rooms.get(Integer.parseInt(id)).getNumber());
-        roomForm.setCountPlaces(rooms.get(Integer.parseInt(id)).getCountPlaces());
+        roomForm.setNumber(roomServices.findRoom(Integer.parseInt(id)).getNumber());
+        roomForm.setCountPlaces(roomServices.findRoom(Integer.parseInt(id)).getCountPlaces());
         model.addAttribute("roomform", roomForm);
         model.addAttribute("id", id);
         log.info("/EditRoom was called");
@@ -92,8 +98,9 @@ public class RoomController {
         int countPlaces = roomForm.getCountPlaces();
         if (number != 0 && typeRooms != null && countPlaces != 0) {
             Room newRoom = new Room(idRoom, number, typeRooms, countPlaces);
-            rooms.set(idRoom, newRoom);
-            model.addAttribute("rooms", rooms);
+            //rooms.set(idRoom, newRoom);
+            //model.addAttribute("rooms", rooms);
+            roomServices.updateRoom(newRoom);
             log.info("Edit Room");
             return modelAndView;
         }
@@ -116,8 +123,8 @@ public class RoomController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         int id = roomForm.getId();
-        rooms.remove(id);
-        model.addAttribute("rooms", rooms);
+        roomServices.deleteRoom(id);
+       // model.addAttribute("rooms", rooms);
         log.info("Delete Room");
         return modelAndView;
     }
@@ -125,6 +132,7 @@ public class RoomController {
     @GetMapping(value = {"/ViewRooms"})
     public ModelAndView ViewRooms(Model model){
         ModelAndView modelAndView = new ModelAndView("ViewRooms");
+        List<Room> rooms = roomServices.getRooms();
         model.addAttribute("rooms", rooms);
         log.info("/ViewRooms was called");
         return modelAndView;

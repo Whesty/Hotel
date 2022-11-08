@@ -5,7 +5,9 @@ package com.example.hotel.controller;
 
 import com.example.hotel.forms.GuestForm;
 import com.example.hotel.model.Guest;
+import com.example.hotel.repository.GuestRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,12 @@ import java.util.List;
 @Controller
 @RequestMapping
 public class GuestController {
+    // Список гостей
+    /*private final GuestRepository guestRepository;
+    @Autowired
+    public GuestController(GuestRepository guestRepository) {
+        this.guestRepository = guestRepository;
+    }*/
     private static List<Guest> guests = new ArrayList<Guest>();
 @GetMapping(value = {"/CreateGuest"})
     public ModelAndView SaveGuest(Model model){

@@ -1,6 +1,9 @@
 package com.example.hotel.config;
 
+import com.example.hotel.controller.RoomController;
+import com.example.hotel.repository.RoomRepository;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -47,10 +50,15 @@ public class WebConfig implements WebMvcConfigurer {
         return viewResolver;
     }
 
+
     // Автоматический контроллер
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
     }
+
+
+
+
 
 }
