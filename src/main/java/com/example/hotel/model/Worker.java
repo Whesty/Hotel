@@ -21,7 +21,7 @@ public class Worker {
     String Surname;
     String Secendname; // Отчество
     String Position; // Должность
-    String Phone;
+    String Phone; //
     String Email;
     int Experience; // Опыт работы
 }

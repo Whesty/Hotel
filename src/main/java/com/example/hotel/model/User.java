@@ -16,6 +16,7 @@ public class User {
     int Id;
     @OneToOne
     Worker Worker; // Идентификатор работника
+    String Login; // Логин
     String Password;
     byte IsAdmin;
 }

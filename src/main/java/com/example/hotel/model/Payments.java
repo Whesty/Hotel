@@ -15,6 +15,5 @@ public class Payments {
     float prize; // Премия
     float salary; // Зарплата
     float workhour; // Рабочих часо
-    int month; // Месяц
-    int year; // Год
+    Date date; // Дата выплаты
 }

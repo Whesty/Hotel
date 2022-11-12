@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Список типов комнат</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h2>
+    <a href="/CreateTypeRoom">Создать тип комнаты</a>
+</h2>
+<table class="TableRoomType">
+    <tr  th:each="typeroom : ${typerooms}">
+        <td>Название</td>
+        <td th:text="${typeroom.name_type}"></td>
+        <td th:text="${typeroom.info}"/>
+        <td th:text="${typeroom.price}"/>
+        <td>
+            <img th:src="@{/images/typerooms/{id}.jpg(id=${typeroom.id})}" alt="typeroom"/>
+        </td>
+        <td><a th:href="@{/EditTypeRooms/{id}(id=${typeroom.id})}">Изменить</a></td>
+        <td><a th:href="@{/DeleteTypeRooms/{id}(id=${typeroom.id})}">Удалить</a></td>
+    </tr>
+</table>
+</body>
+</html>

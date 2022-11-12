@@ -22,6 +22,7 @@
     <td th:text="${room.countPlaces}"></td>
     <td th:text="${room.price}"></td>
     <td th:text="${room.typeRooms}"></td>
+    <td th:text="${room}"></td>
     <td>
       <a th:href="@{/EditRoom/{id}(id=${room.id})}">Изменить</a>
       <a th:href="@{/DeleteRoom/{id}(id=${room.id})}">Удалить</a>

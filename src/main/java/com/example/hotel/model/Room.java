@@ -18,15 +18,15 @@ public class Room {
     int Number;
     //Наследование типов номеров из таблицы TypeRooms
     @OneToOne
-    TypeRooms typeRooms; // Тип номера
+    TypeRoom typeRooms; // Тип номера
     int CountPlaces; // Количество мест
     float Price; // Цена
     //Конйструктор Room
-    public Room(int id, int number, TypeRooms typeRooms, int countPlaces) {
+    public Room(int id, int number, TypeRoom typeRooms, int countPlaces) {
         Id = id;
         Number = number;
         this.typeRooms = typeRooms;
         CountPlaces = countPlaces;
-        Price = typeRooms.Price+CountPlaces*10;
+        Price = typeRooms.price+CountPlaces*10;
     }
 }

@@ -12,16 +12,18 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class TypeRooms {
+@Entity(name ="typerooms")
+public class TypeRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer Id;
-    String Name;
-    String Description;
-    int Price;
-    //Вывод информации о типе номера
-    public String toString() {
-        return Name;
+    Integer id;
+    String name_type;
+    String info;
+    float price;
+
+    public TypeRoom(Integer Id, String Name, String info) {
+        id = Id;
+        name_type = Name;
+        this.info = info;
     }
 }

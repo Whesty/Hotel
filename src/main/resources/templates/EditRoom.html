@@ -21,7 +21,7 @@
         <td>Тип комнаты</td>
         <td>
           <select th:field="*{idTypeRooms}">
-            <option th:each="typerooms : ${typeroomList}" th:value="${typerooms.id}" th:text="${typerooms.name}"></option>
+            <option th:each="typerooms : ${typeroomList}" th:value="${typerooms.id}" th:text="${typerooms.getName_type}"></option>
           </select>
         </td>
       </tr>
