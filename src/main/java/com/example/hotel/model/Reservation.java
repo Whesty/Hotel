@@ -23,8 +23,8 @@ public class Reservation {
     Room room; // Идентификатор номера
     @OneToOne
     Guest guest; // Идентификатор гостя который забронировал номер
-    Date dateIn; // Дата заезда
-    Date dateOut; // Дата выезда
+    Date date_in; // Дата заезда
+    Date date_out; // Дата выезда
     @ManyToMany
     List<Guest> guests; // Список гостей для которых забронировали номер
 }

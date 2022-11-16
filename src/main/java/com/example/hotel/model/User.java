@@ -13,10 +13,10 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int Id;
+    int id;
     @OneToOne
-    Worker Worker; // Идентификатор работника
-    String Login; // Логин
-    String Password;
-    byte IsAdmin;
+    Worker worker; // Идентификатор работника
+    String login; // Логин
+    String password;
+    byte isAdmin;
 }

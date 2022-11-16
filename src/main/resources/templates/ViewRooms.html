@@ -14,15 +14,16 @@
     <th>Номер комнаты</th>
     <th>Количество мест</th>
     <th>Цена</th>
+    <th>Тип</th>
     <th>Описание</th>
     <th>Действия</th>
   </tr>
   <tr th:each="room : ${rooms}">
     <td th:text="${room.number}"></td>
-    <td th:text="${room.countPlaces}"></td>
-    <td th:text="${room.price}"></td>
-    <td th:text="${room.typeRooms}"></td>
-    <td th:text="${room}"></td>
+    <td th:text="${room.getCount_places}"></td>
+    <td th:text="${room.getCount_places()*10+room.getType_rooms().getPrice()}"></td>
+    <td th:text="${room.getType_rooms.name_type}"></td>
+    <td th:text="${room.getType_rooms.info}"></td>
     <td>
       <a th:href="@{/EditRoom/{id}(id=${room.id})}">Изменить</a>
       <a th:href="@{/DeleteRoom/{id}(id=${room.id})}">Удалить</a>

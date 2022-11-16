@@ -10,9 +10,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomForm {
 private Integer Id;
-    private int Number;
-    private TypeRoom typeRooms; // Тип номера
+    private int number;
+    private TypeRoom type_rooms; // Тип номера
     private int idTypeRooms;
-    private int CountPlaces; // Количество мест
-    private float Price; // Цена
+    private int count_places; // Количество мест
+    //private float Price; // Цена
+  /*  private void SetPrice(){
+        if (type_rooms != null) {
+            Price = count_places*10+ type_rooms.getPrice();
+        }
+    }*/
+   /* private RoomForm(int number, TypeRoom type_rooms, int count_places) {
+        this.number = number;
+        this.type_rooms = type_rooms;
+        this.count_places = count_places;
+        SetPrice();
+    }*/
 }

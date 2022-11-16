@@ -14,6 +14,6 @@ public class Payments {
     Worker worker; // Сотрудник
     float prize; // Премия
     float salary; // Зарплата
-    float workhour; // Рабочих часо
+    float work_hour; // Рабочих часо
     Date date; // Дата выплаты
 }

@@ -6,8 +6,8 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<form th:action="@{/DeleteRoom}" th:object="${roomform}" method="post">
-  <h2>Удаление комнату? Id = </h2> <input readonly th:field="*{id}">
+<form th:action="@{/DeleteTypeRoom}" th:object="${typeroomform}" method="post">
+  <h2>Удаление типа комнаты? Id = </h2> <input readonly th:field="*{id}">
   <input type="submit" value="Удалить"/>
 </form>
 </body>

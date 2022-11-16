@@ -16,12 +16,12 @@ import javax.persistence.Id;
 public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int Id;
-    String Name;
-    String Surname;
-    String Secendname; // Отчество
-    String Position; // Должность
-    String Phone; //
-    String Email;
-    int Experience; // Опыт работы
+    private int id;
+    private String lastname; //Фамилия
+    private String firstname; //Имя
+    private String secendname; //Отчество
+    private String position; // Должность
+    private String phone; //
+    private String email;
+    private int experience; // Опыт работы
 }

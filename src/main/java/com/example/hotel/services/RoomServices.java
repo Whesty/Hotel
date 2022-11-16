@@ -30,7 +30,14 @@ public class RoomServices {
     public Room findRoom(int id){
         return roomRepository.findById(id).get();
     }
-    //Изменение номера
+    //Изменение номера по id
+    public void updateRoom(int id, Room room){
+        Room room1 = roomRepository.findById(id).get();
+        room1.setNumber(room.getNumber());
+        room1.setType_rooms(room.getType_rooms());
+        room1.setCount_places(room.getCount_places());
+        roomRepository.save(room1);
+    }
     public void updateRoom(Room room){
         roomRepository.save(room);
     }

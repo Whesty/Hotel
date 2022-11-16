@@ -14,19 +14,11 @@ import javax.persistence.*;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer Id;
-    int Number;
+    Integer id;
+    int number;
     //Наследование типов номеров из таблицы TypeRooms
     @OneToOne
-    TypeRoom typeRooms; // Тип номера
-    int CountPlaces; // Количество мест
-    float Price; // Цена
-    //Конйструктор Room
-    public Room(int id, int number, TypeRoom typeRooms, int countPlaces) {
-        Id = id;
-        Number = number;
-        this.typeRooms = typeRooms;
-        CountPlaces = countPlaces;
-        Price = typeRooms.price+CountPlaces*10;
-    }
+    TypeRoom type_rooms; // Тип номера
+    int count_places; // Количество мест
+
 }

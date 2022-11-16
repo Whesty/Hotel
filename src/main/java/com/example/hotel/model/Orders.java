@@ -20,8 +20,8 @@ public class Orders {
     Guest guest; // Гость сделавший заказ
     @OneToOne
     Service service; // номер
-    Date dateOrders; // Дата заказа
-    Date dateService; // Дата обслуживания
+    Date date_orders; // Дата заказа
+    Date date_service; // Дата обслуживания
     @OneToOne
     Worker worker; // сотрудник
 }

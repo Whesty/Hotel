@@ -23,13 +23,13 @@ public class RoomController {
     // Список номеров
 
     private final RoomServices roomServices;
+    private final TypeRoomServices typeRoomsServices;
 
-
-    public RoomController(RoomServices roomServices, TypeRoomServices typeRoomsServices) {
+    public RoomController(RoomServices roomServices, TypeRoomServices typeRoomsServices, TypeRoomServices typeRoomsServices1) {
         this.roomServices = roomServices;
-        this.typeRoomsServices = typeRoomsServices;
+        this.typeRoomsServices = typeRoomsServices1;
     }
-private final TypeRoomServices typeRoomsServices;
+
 
     //Вызов формы создания номера
     @GetMapping(value = {"/CreateRoom"})
@@ -53,7 +53,7 @@ private final TypeRoomServices typeRoomsServices;
         int idtype = roomForm.getIdTypeRooms();
         List<TypeRoom> typerooms = typeRoomsServices.getTypeRooms();
         TypeRoom typeRooms = typerooms.get(idtype-1);
-        int countPlaces = roomForm.getCountPlaces();
+        int countPlaces = roomForm.getCount_places();
         if (number != 0 && typeRooms != null && countPlaces != 0) {
             Room newRoom = new Room(id, number, typeRooms, countPlaces);
             roomServices.saveRoom(newRoom);
@@ -75,26 +75,23 @@ private final TypeRoomServices typeRoomsServices;
         List<TypeRoom> typerooms = typeRoomsServices.getTypeRooms();
         modelAndView.addObject("typeroomList", typerooms);
         roomForm.setNumber(roomServices.findRoom(Integer.parseInt(id)).getNumber());
-        roomForm.setCountPlaces(roomServices.findRoom(Integer.parseInt(id)).getCountPlaces());
+        roomForm.setCount_places(roomServices.findRoom(Integer.parseInt(id)).getCount_places());
         model.addAttribute("roomform", roomForm);
-        model.addAttribute("id", id);
         log.info("/EditRoom was called");
         return modelAndView;
     }
     //Редактирование номера
-    @PostMapping(value = {"/EditRoom/{id}"})
-    public ModelAndView EditRoom(Model model, @ModelAttribute("roomform") RoomForm roomForm, @ModelAttribute("id") String id){
+    @PostMapping(value = {"/EditRoom"})
+    public ModelAndView EditRoom(Model model, @ModelAttribute("roomform") RoomForm roomForm){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
-        int idRoom = Integer.parseInt(id);
+        int idRoom = roomForm.getId();
         int number = roomForm.getNumber();
-        TypeRoom typeRooms = roomForm.getTypeRooms();
-        int countPlaces = roomForm.getCountPlaces();
+        TypeRoom typeRooms = typeRoomsServices.findTypeRooms(roomForm.getIdTypeRooms());
+        int countPlaces = roomForm.getCount_places();
         if (number != 0 && typeRooms != null && countPlaces != 0) {
             Room newRoom = new Room(idRoom, number, typeRooms, countPlaces);
-            //rooms.set(idRoom, newRoom);
-            //model.addAttribute("rooms", rooms);
-            roomServices.updateRoom(newRoom);
+            roomServices.updateRoom(idRoom, newRoom);
             log.info("Edit Room");
             return modelAndView;
         }
@@ -103,10 +100,11 @@ private final TypeRoomServices typeRoomsServices;
         return modelAndView;
     }
     //Удаление номера
-    @GetMapping(value = {"/DeleteRoom"})
-    public ModelAndView DeleteRoom(Model model){
+    @GetMapping(value = {"/DeleteRoom/{id}"})
+    public ModelAndView DeleteRoom(Model model, @PathVariable String id){
         ModelAndView modelAndView = new ModelAndView("DeleteRoom");
         RoomForm roomForm = new RoomForm();
+        roomForm.setId(Integer.parseInt(id));
         model.addAttribute("roomform", roomForm);
         log.info("/DeleteRoom was called");
         return modelAndView;
@@ -118,7 +116,6 @@ private final TypeRoomServices typeRoomsServices;
         modelAndView.setViewName("index");
         int id = roomForm.getId();
         roomServices.deleteRoom(id);
-       // model.addAttribute("rooms", rooms);
         log.info("Delete Room");
         return modelAndView;
     }
