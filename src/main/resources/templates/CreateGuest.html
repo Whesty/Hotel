@@ -20,13 +20,16 @@
             <input type="text" th:field="*{secendname}"/>
         </p>
         <p>Дата рождения
-            <input type="Date" th:field="*{birthday}"/>
+            <input type="date" th:field="*{birthday}"/>
         </p>
         <p>email
             <input type="text" th:field="*{email}"/>
         </p>
         <input class="button-main-page" type="submit" value="Add"/>
     </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
 </div>
 </body>
 </html>

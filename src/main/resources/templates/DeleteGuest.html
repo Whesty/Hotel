@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление гостя</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<form th:action="@{/DeleteGuest}" th:object="${guestform}" method="post">
+    <h2>Удаление комнату? Id = </h2> <input readonly th:field="*{id}">
+    <input type="submit" value="Удалить"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Изменение гостя</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <form th:action="@{/EditGuest}" th:object="${guestform}" method="post">
+    <table>
+      <tr>
+        <td>Id</td>
+        <td><input type="text" readonly th:field="*{id}"/></td>
+      </tr>
+      <tr>
+        <td>Имя</td>
+        <td><input type="text" th:field="*{firstname}"/></td>
+      </tr>
+
+      <tr>
+        <td>Фамилия</td>
+        <td><input type="text" th:field="*{lastname}"/></td>
+      </tr>
+      <tr>
+        <td>Отчество</td>
+        <td><input type="text" th:field="*{secendname}"/></td>
+      </tr>
+      <tr>
+        <td>Дата рождения</td>
+        <td><input type="date" th:field="${guestform.birthday}" id="guestform-birthday"/></td>
+      </tr>
+        <tr>
+          <td>Email</td>
+          <td><input type="email" th:field="*{email}"/></td>
+        </tr>
+      <tr>
+        <td><input class="button-main-page" type="submit" value="Изменить"/></td>
+      </tr>
+    </table>
+  </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
+</div>
+</body>
+</html>

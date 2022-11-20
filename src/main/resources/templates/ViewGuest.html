@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список гостей</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+ <table>
+    <tr>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th>Отчество</th>
+      <th>Дата рождения</th>
+      <th>Почта</th>
+      <th>Действия</th>
+    </tr>
+    <tr th:each="guest : ${guests}">
+      <td th:text="${guest.firstname}"></td>
+      <td th:text="${guest.lastname}"></td>
+      <td th:text="${guest.secendname}"></td>
+      <td th:text="${guest.birthday}"></td>
+      <td th:text="${guest.email}"></td>
+        <td>
+            <a th:href="@{/EditGuest/{id}(id=${guest.id})}">Изменить</a>
+            <a th:href="@{/DeleteGuest/{id}(id=${guest.id})}">Удалить</a>
+        </td>
+    </tr>
+ </table>
+</body>
+</html>

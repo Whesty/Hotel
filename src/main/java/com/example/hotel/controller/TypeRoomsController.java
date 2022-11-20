@@ -45,11 +45,12 @@ public class TypeRoomsController {
         String description = typeRoomForm.getInfo();
         float price = typeRoomForm.getPrice();
         if (name != null  && description != null && price != 0) {
-            TypeRoom newTypeRoom = new TypeRoom(id, name, description,price);
+            TypeRoom newTypeRoom = new TypeRoom(null, name, description,price);
             typeRoomsServices.saveTypeRooms(newTypeRoom);
         }
         modelAndView.setViewName("ViewTypeRooms");
-        modelAndView.addObject("typeRooms", typeRoomsServices.getTypeRooms());
+
+        modelAndView.addObject("typerooms", typeRoomsServices.getTypeRooms());
         return modelAndView;
     }
 

@@ -25,5 +25,4 @@ public class LogEvents {
     //Пользователь
     @ManyToOne
     private User user;
-
 }
