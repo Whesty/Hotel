@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Просмотр списка комнат</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h2>
+  <a th:href="@{/CreateService}">Создать услугу</a>
+</h2>
+<table>
+  <tr>
+  </tr>
+  <tr th:each="service : ${services}">
+    <td th:text="${service.service_name}"></td>
+    <td th:text="${service.price}"></td>
+    <td th:text="${service.info}"></td>
+    <td>
+      <a th:href="@{/EditService/{id}(id=${service.id})}">Изменить</a>
+      <a th:href="@{/DeleteService/{id}(id=${service.id})}">Удалить</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

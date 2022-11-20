@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Изменение комнаты</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <form th:action="@{/EditService}" th:object="${serviceform}" method="post">
+    <table>
+      <tr>
+        <td>Id</td>
+        <td><input type="text" readonly th:field="*{id}"/></td>
+      </tr>
+        <tr>
+            <td>Название</td>
+            <td><input type="text" th:field="*{service_name}"/></td>
+        </tr>
+        <tr>
+            <td>Описание</td>
+          <td><input type="text" th:field="*{info}"/></td>
+        </tr>
+        <tr>
+            <td>Цена</td>
+            <td><input type="text" th:field="*{price}"/></td>
+        </tr>
+      <tr>
+        <td><input class="button-main-page" type="submit" value="Изменить"/></td>
+      </tr>
+    </table>
+  </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
+</div>
+</body>
+</html>

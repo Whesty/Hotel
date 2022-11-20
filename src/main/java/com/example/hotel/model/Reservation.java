@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 // Бронь
@@ -16,7 +16,7 @@ import java.util.List;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Integer id;
     @OneToOne
     User user; // Идентификатор пользователя который создал бронь
     @OneToOne

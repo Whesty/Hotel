@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать заказ</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>Данные гостя</h1>
+    <form th:action="@{/CreateOrders}"
+          th:object="${ordersform}" method="post">
+
+        <input class="button-main-page" type="submit" value="Add"/>
+    </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
+</div>
+</body>
+</html>

@@ -1,28 +1,22 @@
-package com.example.hotel.model;
+package com.example.hotel.forms;
 
+import com.example.hotel.model.Guest;
+import com.example.hotel.model.Service;
+import com.example.hotel.model.Worker;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
-import javax.persistence.*;
-import java.util.Date;
-
-// Заказы
+import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Orders {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class OrdersForm {
+
     int id; // Идентификатор
-    @OneToOne
     Guest guest; // Гость сделавший заказ
-    @OneToOne
     Service service; // номер
     Date date_orders; // Дата заказа
     Date date_service; // Дата обслуживания
-    @OneToOne
     Worker worker; // сотрудник
 }

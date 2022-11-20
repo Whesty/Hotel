@@ -45,23 +45,11 @@ public class GuestController {
     public ModelAndView SaveGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm){
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.setViewName("index");
-    List<Guest> guests = guestServices.getGuests();
-    int id = guests.size();
-    String Lastname = guestForm.getLastname();
-    String Firstname = guestForm.getFirstname();
-    String Secendname = guestForm.getSecendname();
-    String email = guestForm.getEmail();
-    Date birthday = guestForm.getBirthday();
-    if (Lastname != null && Lastname.length() > 0 //
-            && Firstname != null && Firstname.length() > 0 //
-            && Secendname != null && Secendname.length() > 0 //
-            && email != null && email.length() > 0 //
-            && birthday != null) {
-        Guest newGuest = new Guest(id+1, Lastname, Firstname, Secendname, email, birthday);
-        guests.add(newGuest);
+    if (guestForm != null) {
+        log.info(createGuest(guestForm));
+        List<Guest> guests = guestServices.getGuests();
         model.addAttribute("guests", guests);
-        guestServices.saveGuest(newGuest);
-        log.info("Add Guest");
+
         log.info("Guests: " + guests);
         return modelAndView;
     }
@@ -70,6 +58,26 @@ public class GuestController {
     log.info("/CreateGuest was called");
     return modelAndView;
 }
+//Функция для создания гостя
+    public String createGuest(GuestForm guestForm){
+        List<Guest> guests = guestServices.getGuests();
+        int id = guests.size();
+        String Lastname = guestForm.getLastname();
+        String Firstname = guestForm.getFirstname();
+        String Secendname = guestForm.getSecendname();
+        String email = guestForm.getEmail();
+        Date birthday = guestForm.getBirthday();
+        Guest newGuest = new Guest(id+1, Lastname, Firstname, Secendname, email, birthday);
+        if(guests.equals(newGuest)){
+            log.info("Guest already exists");
+            return "Guest already exists";
+        }
+        else {
+            guestServices.saveGuest(newGuest);
+            log.info("Guest added");
+            return "Guest added";
+        }
+    }
 // Удаление гостя
     @GetMapping(value = {"/DeleteGuest/{id}"})
         public ModelAndView DeleteGuest(Model model, @PathVariable("id") int id){

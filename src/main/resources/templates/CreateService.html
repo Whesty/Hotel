@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать услугу</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <h1>Данные гостя</h1>
+  <form th:action="@{/CreateService}"
+        th:object="${serviceform}" method="post">
+    <table>
+        <tr>
+            <td>Название услуги</td>
+            <td><input type="text" th:field="*{service_name}"/></td>
+        </tr>
+        <tr>
+            <td>Цена</td>
+            <td><input type="text" th:field="*{price}"/></td>
+        </tr>
+        <tr>
+            <td>Описание</td>
+            <td><input type="text" th:field="*{info}"/></td>
+        </tr>
+    </table>
+    <input class="button-main-page" type="submit" value="Add"/>
+  </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
+</div>
+</body>
+</html>

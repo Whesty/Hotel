@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Удаление услуги</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<form th:action="@{/DeleteService}" th:object="${serviceform}" method="post">
+  <h2>Удаление услуги? Id = </h2> <input readonly th:field="*{id}">
+  <input type="submit" value="Удалить"/>
+</form>
+</body>
+</html>
