@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Просмотр списка броней</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h2>
+  <a th:href="@{/CreateReservation}">Создать бронь</a>
+</h2>
+<table>
+  <tr>
+  </tr>
+  <tr th:each="reservation : ${reservations}">
+    <td th:text="${reservation.getId()}"></td>
+    <td th:text="${reservation.getRoom().getNumber()}"></td>
+    <td th:text="${reservation.getRoom().getPrice()}"></td>
+    <td th:text="${reservation.getRoom().getType_rooms()}"></td>
+    <td th:text="${reservation.getGuest().getFullName()}"></td>
+    <td th:text="${reservation.getGuests().size()}"></td>
+    <td th:text="${reservation.getDate_in()}"></td>
+    <td th:text="${reservation.getDate_out()}"></td>
+    <td>
+        <a th:href="@{/EditReservation/{id}(id=${reservation.getId()})}">Изменить</a>
+        <a th:href="@{/DeleteReservation/{id}(id=${reservation.getId()})}">Удалить</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

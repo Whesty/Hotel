@@ -1,16 +1,47 @@
-function WriteList(list){
-    //Создание выпадаюшего списка
-    var select = document.createElement("select");
-    select.setAttribute("id", "select");
-    select.setAttribute("name", "select");
-    select.setAttribute("onchange", "WriteTable()");
-    document.body.appendChild(select);
-    //Заполнение выпадаюшего списка
-    for (var i = 0; i < list.length; i++) {
-        var option = document.createElement("option");
-        option.setAttribute("value", list[i]);
-        option.innerHTML = list[i];
-        select.appendChild(option);
-    }
-    return select;
+function CreateGuest(list){
+// Добавить форму создания гостя c использованием JavaSpring
+var form = document.createElement("form");
+form.setAttribute("method", "post");
+form.setAttribute("action", "/CreateGuest");
+var input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("name", "name");
+input.setAttribute("placeholder", "Name");
+form.appendChild(input);
+var input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("name", "surname");
+input.setAttribute("placeholder", "Surname");
+form.appendChild(input);
+var input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("name", "patronymic");
+input.setAttribute("placeholder", "Patronymic");
+form.appendChild(input);
+var input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("name", "phone");
+input.setAttribute("placeholder", "Phone");
+form.appendChild(input);
+var input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("name", "email");
+input.setAttribute("placeholder", "Email");
+form.appendChild(input);
+var input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("name", "email");
+input.setAttribute("placeholder", "Email");
+form.appendChild(input);
+var input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("name", "birthday");
+input.setAttribute("placeholder", "Birthday");
+form.appendChild(input);
+var input = document.createElement("input");
+input.setAttribute("type", "sibmit");
+input.setAttribute("value", "Create");
+form.appendChild(input);
+list.appendChild(form);
+
 }

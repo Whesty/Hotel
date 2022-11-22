@@ -1,5 +1,6 @@
 package com.example.hotel.model;
 
+import com.example.hotel.services.GuestServices;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,19 @@ public class Guest {
     private String email; //Почта
     private Date birthday; //Дата рождения
 
+    public void SetToServices(){
+        GuestServices guestServices = new GuestServices();
+        Guest newGuest = guestServices.findGuest(this.id);
+        if (newGuest != null){
+            this.lastname = newGuest.lastname;
+            this.firstname = newGuest.firstname;
+            this.secendname = newGuest.secendname;
+            this.email = newGuest.email;
+            this.birthday = newGuest.birthday;
+        }
+    }
+    public String getFullName(){
+        return lastname + " " + firstname + " " + secendname;
+    }
 
 }

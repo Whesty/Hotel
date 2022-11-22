@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Создание бронирования</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<form th:action="@{/CreateReservation}" th:object="${reservationform}" method="post">
+    <table>
+        <tr>
+            <td>Тип комнаты</td>
+            <td>
+                <select th:field="*{type_room_id}">
+                    <option th:each="typerooms : ${typeroomList}" th:value="${typerooms.id}" th:text="${typerooms.getName_type}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Дата заезда</td>
+            <td><input type="date" th:field="*{date_in}"/></td>
+        </tr>
+        <tr>
+            <td>Дата выезда</td>
+            <td><input type="date" th:field="*{date_out}"/></td>
+        </tr>
+        <tr>
+            <td>ФИО гостя</td>
+            <td><input type="text" readonly th:field="*{guest_id}">
+            </td>
+            <td><button onclick="CreateGuest()">Создать гостя</button></td>
+            <Div id="CreateGuest"></Div>
+        </tr>
+        <tr>
+            <td>Количество гостей</td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Создать"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
