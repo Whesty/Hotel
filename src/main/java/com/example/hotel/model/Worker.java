@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String lastname; //Фамилия
     private String firstname; //Имя
     private String secendname; //Отчество

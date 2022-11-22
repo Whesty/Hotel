@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Список работников</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h2>
+  <a href="/CreateWorker">Создать тип комнаты</a>
+</h2>
+<table class="TableRoomType">
+  <tr  th:each="worker : ${workers}">
+    <td th:text="${worker.firstname}"></td>
+    <td th:text="${worker.lastname}"></td>
+    <td th:text="${worker.secendname}"></td>
+    <td th:text="${worker.position}"></td>
+    <td th:text="${worker.email}"></td>
+    <td th:text="${worker.phone}"></td>
+    <td th:text="${worker.experience}"></td>
+    <td><a th:href="@{/EditWorker/{id}(id=${worker.id})}">Изменить</a></td>
+    <td><a th:href="@{/DeleteWorker/{id}(id=${worker.id})}">Удалить</a></td>
+  </tr>
+</table>
+</body>
+</html>

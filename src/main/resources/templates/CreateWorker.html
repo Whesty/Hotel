@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать работника</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <h1>Данные работник</h1>
+  <form th:action="@{/CreateWorker}"
+        th:object="${workerform}" method="post">
+    <table>
+      <tr>
+        <td>Имя</td>
+        <td><input type="text" th:field="*{firstname}"/></td>
+      </tr>
+      <tr>
+        <td>Фамилия</td>
+        <td><input type="text" th:field="*{lastname}"/></td>
+      </tr>
+      <tr>
+        <td>Отчество</td>
+        <td><input type="text" th:field="*{secendname}"/></td>
+      </tr>
+        <tr>
+            <td>Должность</td>
+            <td><input type="text" th:field="*{position}"/></td>
+        </tr>
+        <tr>
+            <td>Электронная почта</td>
+            <td><input type="text" th:field="*{email}"/></td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td><input type="text" th:field="*{phone}"/></td>
+        </tr>
+        <tr>
+            <td>Опыт работы</td>
+            <td><input type="text" th:field="*{experience}"/></td>
+        </tr>
+    </table>
+    <input class="button-main-page" type="submit" value="Add"/>
+  </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
+</div>
+</body>
+</html>

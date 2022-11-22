@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Изменение работника</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <form th:action="@{/EditWorker}" th:object="${workerform}" method="post">
+    <table>
+      <tr>
+        <td>Id</td>
+        <td><input type="text" readonly th:field="*{id}"/></td>
+      </tr>
+      <tr>
+        <td>Имя</td>
+        <td><input type="text" th:field="*{firstname}"/></td>
+      </tr>
+      <tr>
+        <td>Фамилия</td>
+        <td><input type="text" th:field="*{lastname}"/></td>
+      </tr>
+      <tr>
+        <td>Отчество</td>
+        <td><input type="text" th:field="*{secendname}"/></td>
+      </tr>
+      <tr>
+        <td>Почта</td>
+        <td><input type="text" th:field="*{email}"/></td>
+      </tr>
+      <tr>
+        <td>Телефон</td>
+        <td><input type="text" th:field="*{phone}"/></td>
+      </tr>
+      <tr>
+        <td>Опыт работы</td>
+        <td><input type="text" th:field="*{experience}"/></td>
+      </tr>
+      <tr>
+        <td><input class="button-main-page" type="submit" value="Изменить"/></td>
+      </tr>
+    </table>
+  </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
+</div>
+</body>
+</html>
