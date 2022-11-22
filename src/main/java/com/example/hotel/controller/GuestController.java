@@ -68,6 +68,7 @@ public class GuestController {
         String email = guestForm.getEmail();
         Date birthday = guestForm.getBirthday();
         Guest newGuest = new Guest(id+1, Lastname, Firstname, Secendname, email, birthday);
+        guestForm.setId(id+1);
         if(guests.equals(newGuest)){
             log.info("Guest already exists");
             return "Guest already exists";
@@ -154,6 +155,29 @@ public class GuestController {
         List<Guest> guests = guestServices.getGuests();
         model.addAttribute("guests", guests);
         log.info("/ViewGuest was called");
+        return modelAndView;
+    }
+    //Создать гостя в Reservation
+    @GetMapping(value = {"/CreateGuestReservation"})
+        public ModelAndView SaveGuestReservation(Model model){
+        ModelAndView modelAndView = new ModelAndView("CreateGuestReservation");
+        GuestForm guestForm = new GuestForm();
+        model.addAttribute("guestform", guestForm);
+        log.info("/CreateGuestReservation was called");
+        return modelAndView;
+    }
+    @PostMapping(value = {"/CreateGuestReservation"})
+        public ModelAndView SaveGuestReservation(Model model, @ModelAttribute("guestform") GuestForm guestForm){
+        ModelAndView modelAndView = new ModelAndView();
+        if (guestForm != null) {
+            log.info(createGuest(guestForm));
+            modelAndView.addObject("guest_id", guestForm.getId());
+            log.info("Guest: " + guestForm.getId() );
+            return modelAndView;
+        }
+        model.addAttribute("errorMessage", "Error");
+        modelAndView.setViewName("CreateReservation");
+        log.info("/CreateGuestReservation was called");
         return modelAndView;
     }
 }

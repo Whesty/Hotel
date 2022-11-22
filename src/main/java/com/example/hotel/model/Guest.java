@@ -27,7 +27,7 @@ public class Guest {
     private String email; //Почта
     private Date birthday; //Дата рождения
 
-    public void SetToServices(){
+    /*public void SetToServices(){
         GuestServices guestServices = new GuestServices();
         Guest newGuest = guestServices.findGuest(this.id);
         if (newGuest != null){
@@ -37,7 +37,7 @@ public class Guest {
             this.email = newGuest.email;
             this.birthday = newGuest.birthday;
         }
-    }
+    }*/
     public String getFullName(){
         return lastname + " " + firstname + " " + secendname;
     }

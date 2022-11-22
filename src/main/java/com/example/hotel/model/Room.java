@@ -35,7 +35,7 @@ public class Room {
     public float getPrice(){
         return count_places*10+ type_rooms.getPrice();
     }
-
+/*
     public Reservation getReservation() {
         ReservationServices reservationServices = new ReservationServices();
         return reservationServices.findReservationByRoom(this);
@@ -44,5 +44,5 @@ public class Room {
     public Reservation getReservation(Date date_in, Date date_out) {
         ReservationServices reservationServices = new ReservationServices();
         return reservationServices.findReservationByRoom(this, date_in, date_out);
-    }
+    }*/
 }

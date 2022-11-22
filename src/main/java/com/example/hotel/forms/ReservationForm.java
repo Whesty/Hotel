@@ -3,6 +3,7 @@ package com.example.hotel.forms;
 import com.example.hotel.model.Guest;
 import com.example.hotel.model.Reservation;
 import com.example.hotel.model.Room;
+import com.example.hotel.services.GuestServices;
 import com.example.hotel.services.RoomServices;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class ReservationForm {
     private int room_id;
     private int type_room_id;
     private int guest_id;
+    private Guest guest;
     private Date date_in;
     private Date date_out;
     private int[] guests_id;
@@ -32,8 +34,8 @@ public class ReservationForm {
         this.date_out = reservation.getDate_out();
         this.type_room_id = reservation.getRoom().getType_rooms().getId();
         this.guests_id = reservation.getGuests().stream().mapToInt(guest -> guest.getId()).toArray();
-    }
-    public Reservation toReservation() {
+    };
+   /* public Reservation toReservation() {
         Reservation reservation = new Reservation();
         reservation.setId(this.id);
         if(this.room_id != 0) {
@@ -59,5 +61,5 @@ public class ReservationForm {
             reservation.getGuests().add(newGuest);
         }
         return reservation;
-    }
+    }*/
 }

@@ -42,15 +42,6 @@ public class RoomServices {
     public void updateRoom(Room room){
         roomRepository.save(room);
     }
-    //Первая свободная комната по типу
-    public Room getFreeRoom(int type, Date date_in, Date date_out){
-        List<Room> rooms = roomRepository.findAll();
-        for (Room room: rooms) {
-            if (room.getType_rooms().getId() == type && room.getReservation(date_in, date_out) == null){
-                return room;
-            }
-        }
-        return null;
-    }
+
 }
 

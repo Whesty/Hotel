@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Создать заказ</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="container">
+  <h1>Данные гостя</h1>
+  <form th:action="@{/CreateGuestinReservation}" th:object="${guestform}" method="post">
+
+    <p>Фамилия
+      <input type="text" th:field="*{lastname}"/>
+    </p>
+    <p>Имя
+      <input type="text" th:field="*{firstname}"/>
+    </p>
+    <p>Отчество
+      <input type="text" th:field="*{secendname}"/>
+    </p>
+    <p>Дата рождения
+      <input type="date" th:field="*{birthday}"/>
+    </p>
+    <p>email
+      <input type="text" th:field="*{email}"/>
+    </p>
+    <input class="button-main-page" type="submit" value="Add"/>
+  </form>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;">
+</div>
+</body>
+</html>

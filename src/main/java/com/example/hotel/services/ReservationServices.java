@@ -42,11 +42,22 @@ public class ReservationServices {
         return null;
     }
     //Получить бронь в районе дат
-    public Reservation findReservationByRoom(Room room, Date date_in, Date date_out) {
+    public  Reservation findReservationByRoom(Room room, Date date_in, Date date_out) {
         List<Reservation> reservations = reservationRepository.findAll();
         for (Reservation reservation: reservations) {
             //Если дата заезда больше даты брони и дата выезда меньше даты брони
             if (reservation.getRoom().getId() == room.getId() && date_in.after(reservation.getDate_in()) && date_out.before(reservation.getDate_out())){
+                return reservation;
+            }
+        }
+        return null;
+    }
+    //Получить бронь в районе дат
+    public Reservation findReservationByRoom(Room room, Date date_in, Date date_out, int id) {
+        List<Reservation> reservations = reservationRepository.findAll();
+        for (Reservation reservation: reservations) {
+            //Если дата заезда больше даты брони и дата выезда меньше даты брони
+            if (reservation.getRoom().getId() == room.getId() && date_in.after(reservation.getDate_in()) && date_out.before(reservation.getDate_out()) && reservation.getId() != id){
                 return reservation;
             }
         }

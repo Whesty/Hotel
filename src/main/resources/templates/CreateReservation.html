@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Создание бронирования</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script th:src="@{/Script.js}"></script>
 </head>
 <body>
 <form th:action="@{/CreateReservation}" th:object="${reservationform}" method="post">
@@ -12,7 +13,7 @@
             <td>Тип комнаты</td>
             <td>
                 <select th:field="*{type_room_id}">
-                    <option th:each="typerooms : ${typeroomList}" th:value="${typerooms.id}" th:text="${typerooms.getName_type}"></option>
+                    <option th:each="typerooms : ${typeroomList}" th:value="${typerooms.getId()}" th:text="${typerooms.toString()}"></option>
                 </select>
             </td>
         </tr>
@@ -26,10 +27,9 @@
         </tr>
         <tr>
             <td>ФИО гостя</td>
-            <td><input type="text" readonly th:field="*{guest_id}">
+            <td><input type="text" th:field="*{guest_id}" style="max-width: 20px; ">
             </td>
-            <td><button onclick="CreateGuest()">Создать гостя</button></td>
-            <Div id="CreateGuest"></Div>
+            <td th:text="*{guest.fullName}"></td>
         </tr>
         <tr>
             <td>Количество гостей</td>
@@ -39,5 +39,6 @@
         </tr>
     </table>
 </form>
+
 </body>
 </html>
