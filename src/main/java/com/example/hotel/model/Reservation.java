@@ -17,14 +17,13 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @OneToOne
+    @ManyToOne
     User user; // Идентификатор пользователя который создал бронь
     @OneToOne
     Room room; // Идентификатор номера
-    @OneToOne
+    @ManyToOne
     Guest guest; // Идентификатор гостя который забронировал номер
     Date date_in; // Дата заезда
     Date date_out; // Дата выезда
-    @ManyToMany
-    List<Guest> guests; // Список гостей для которых забронировали номер
+    int guest_count;
 }

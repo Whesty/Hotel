@@ -7,10 +7,19 @@
 </head>
 <body>
 <h2>
-  <a th:href="@{/CreateReservation}">Создать бронь</a>
 </h2>
 <table>
   <tr>
+    <td>Id</td>
+    <td>Носер комнаты</td>
+    <td>Цена</td>
+    <td>Тип комнаты</td>
+    <td>ФИО гостя</td>
+    <td>Количество гостей</td>
+    <td>Дата заеда</td>
+    <td>Дата выезда</td>
+    <td>Действия</td>
+    <td></td>
   </tr>
   <tr th:each="reservation : ${reservations}">
     <td th:text="${reservation.getId()}"></td>
@@ -18,7 +27,7 @@
     <td th:text="${reservation.getRoom().getPrice()}"></td>
     <td th:text="${reservation.getRoom().getType_rooms()}"></td>
     <td th:text="${reservation.getGuest().getFullName()}"></td>
-    <td th:text="${reservation.getGuests().size()}"></td>
+    <td th:text="${reservation.getGuest_count()}"></td>
     <td th:text="${reservation.getDate_in()}"></td>
     <td th:text="${reservation.getDate_out()}"></td>
     <td>

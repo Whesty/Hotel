@@ -24,7 +24,7 @@ public class ReservationForm {
     private Guest guest;
     private Date date_in;
     private Date date_out;
-    private int[] guests_id;
+    private int guests_count;
     public ReservationForm(Reservation reservation) {
         this.id = reservation.getId();
         this.user_id = reservation.getUser().getId();
@@ -33,7 +33,6 @@ public class ReservationForm {
         this.date_in = reservation.getDate_in();
         this.date_out = reservation.getDate_out();
         this.type_room_id = reservation.getRoom().getType_rooms().getId();
-        this.guests_id = reservation.getGuests().stream().mapToInt(guest -> guest.getId()).toArray();
     };
    /* public Reservation toReservation() {
         Reservation reservation = new Reservation();

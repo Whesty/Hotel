@@ -26,4 +26,7 @@ public class TypeRoom {
         name_type = Name;
         this.info = info;
     }
+    public String toString(){
+        return name_type;
+    }
 }

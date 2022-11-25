@@ -51,10 +51,10 @@ public class ReservationController {
         return modelAndView;
     }
     //Первая свободная комната по типу
-    public Room getFreeRoom(int type, Date date_in, Date date_out){
+    public Room getFreeRoom(int type, Date date_in, Date date_out, int guests_count){
         List<Room> rooms = roomServices.getRooms();
         for (Room room: rooms) {
-            if (room.getType_rooms().getId() == type && reservationServices.findReservationByRoom(room, date_in, date_out) == null){
+            if (room.getType_rooms().getId() == type && room.getCount_places()==guests_count && reservationServices.findReservationByRoom(room, date_in, date_out) == null){
                 return room;
             }
         }
@@ -73,6 +73,7 @@ public class ReservationController {
     @PostMapping(value = {"/CreateReservation"})
     public ModelAndView CreateReservation(ReservationForm reservationForm){
         Reservation reservation = toReservation(reservationForm);
+        //reservation.setRoom(getFreeRoom(reservationForm.getType_room_id(), reservation.getDate_in(), reservation.getDate_out()));
         reservationServices.save(reservation);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
@@ -80,18 +81,19 @@ public class ReservationController {
     }
     public Reservation toReservation(ReservationForm reservationForm) {
         Reservation reservation = new Reservation();
-        reservation.setId(reservationForm.getId());
+        //reservation.setId(reservationForm.getId());
         if(reservationForm.getRoom_id() != 0) {
             Room room = roomServices.findRoom(reservationForm.getRoom_id());
             reservation.setRoom(room);
         }else     {
-            RoomServices roomServices = new RoomServices();
-            Room room = getFreeRoom(reservationForm.getType_room_id(), reservationForm.getDate_in(), reservationForm.getDate_out());
+            Room room = getFreeRoom(reservationForm.getType_room_id(), reservationForm.getDate_in(), reservationForm.getDate_out(), reservationForm.getGuests_count());
+            reservation.setRoom(room);
         }
         Guest newGuest = guestServices.findGuest(reservationForm.getGuest_id());
         reservation.setGuest(newGuest);
         reservation.setDate_in(reservationForm.getDate_in());
         reservation.setDate_out(reservationForm.getDate_out());
+        reservation.setGuest_count(reservationForm.getGuests_count());
         return reservation;
     }
     //Удаление бронирования
