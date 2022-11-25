@@ -21,11 +21,7 @@ import java.util.List;
 @RequestMapping
 public class GuestController {
     // Список гостей
-    /*private final GuestRepository guestRepository;
-    @Autowired
-    public GuestController(GuestRepository guestRepository) {
-        this.guestRepository = guestRepository;
-    }*/
+
     private final GuestServices guestServices;
 
     public GuestController(GuestServices guestServices) {
@@ -48,8 +44,6 @@ public class GuestController {
     if (guestForm != null) {
         log.info(createGuest(guestForm));
         List<Guest> guests = guestServices.getGuests();
-        model.addAttribute("guests", guests);
-
         log.info("Guests: " + guests);
         return modelAndView;
     }
@@ -58,6 +52,7 @@ public class GuestController {
     log.info("/CreateGuest was called");
     return modelAndView;
 }
+
 //Функция для создания гостя
     public String createGuest(GuestForm guestForm){
         List<Guest> guests = guestServices.getGuests();
@@ -180,4 +175,5 @@ public class GuestController {
         log.info("/CreateGuestReservation was called");
         return modelAndView;
     }
+
 }

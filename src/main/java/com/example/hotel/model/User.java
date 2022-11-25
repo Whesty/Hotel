@@ -18,5 +18,11 @@ public class User {
     Worker worker; // Идентификатор работника
     String login; // Логин
     String password;
-    byte isAdmin;
+    @OneToOne
+    Role roles; // Роль
+
+    public User(String login, String encode) {
+        this.login = login;
+        this.password = encode;
+    }
 }

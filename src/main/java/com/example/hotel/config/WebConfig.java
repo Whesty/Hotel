@@ -1,10 +1,21 @@
 package com.example.hotel.config;
 
+import com.example.hotel.Security.UserDetailsServiceImpl;
+import com.example.hotel.config.jwt.AuthEntryPointJwt;
+import com.example.hotel.config.jwt.AuthTokenFilter;
 import com.example.hotel.controller.RoomController;
 import com.example.hotel.repository.RoomRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,7 +29,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @Configuration
 //Класс WebConfig реализует интерфейс WebMvcConfigurer, у которого есть
 //целая куча методов, и настывает все по своему вкусу.
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer  {
     @Bean
     public ClassLoaderTemplateResolver templateResolver() {
         var templateResolver = new ClassLoaderTemplateResolver();
@@ -67,6 +78,57 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
+    @Autowired
+    UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
+
+    @Bean
+    public AuthTokenFilter authenticationJwtTokenFilter() {
+        return new AuthTokenFilter();
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+       /* http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/test/**").permitAll()
+                .anyRequest().authenticated();
+*/
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+//		http
+//		.authorizeRequests(authorizeRequests ->
+//				authorizeRequests
+//					.antMatchers("/board/*").hasAnyRole("MANAGER", "OPERATOR")
+//					.antMatchers("/members/*").hasRole("MANAGER")
+//					.antMatchers("/").permitAll())
+//		.httpBasic().realmName("org team")
+//		.and()
+//		.sessionManagement()
+//		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
 
 
 
