@@ -6,6 +6,7 @@ import com.example.hotel.forms.UserForm;
 import com.example.hotel.model.ERole;
 import com.example.hotel.model.Role;
 import com.example.hotel.model.User;
+import com.example.hotel.services.WorkerServices;
 import com.example.hotel.repository.RoleRepository;
 import com.example.hotel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -44,10 +42,16 @@ public class UserController {
     @Autowired
     JwtUtils jwtUtils;
 
+    private final WorkerServices workerServices;
+
+    public UserController(WorkerServices workerServices) {
+        this.workerServices = workerServices;
+    }
+
     @PostMapping("/signin")
     public ModelAndView authUser(Model model, @ModelAttribute("userForm") UserForm userForm) {
 
-ModelAndView modelAndView = new ModelAndView("index");
+ModelAndView modelAndView = new ModelAndView("indexWorker");
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         userForm.getLogin(),
@@ -58,7 +62,14 @@ ModelAndView modelAndView = new ModelAndView("index");
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         String role = userDetails.getAuthorities().stream().findFirst().toString();
-
+        model.addAttribute("IdUser", userDetails.getId());
+        return modelAndView;
+    }
+    @GetMapping("/indexWorker")
+    public ModelAndView WorkerAria(Model model, @ModelAttribute("IdUser") Integer idUser){
+        ModelAndView modelAndView = new ModelAndView("indexWorker");
+        User user = userRespository.getById(idUser);
+        model.addAttribute("user", user);
         return modelAndView;
     }
 
@@ -80,7 +91,7 @@ ModelAndView modelAndView = new ModelAndView("index");
         Set<Role> roles = new HashSet<>();
 
 
-                switch (signUpRequest.getRoles()) {
+                switch (signUpRequest.getRole()) {
                     case "ROLE_ADMIN":
                         Role adminRole = roleRepository
                                 .findByName(ERole.ROLE_ADMIN)
@@ -104,6 +115,7 @@ ModelAndView modelAndView = new ModelAndView("index");
 
         }
         user.setRoles(roles.stream().findFirst().get());
+        user.setWorker(workerServices.findById(signUpRequest.getWorker_id()));
         userRespository.save(user);
         return  modelAndView;}
 

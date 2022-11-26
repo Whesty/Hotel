@@ -10,3 +10,28 @@ img
     height: 100%;
     object-fit: contain;
 }
+
+.header {
+    max-width: 100%;
+    background: cadetblue;
+    height: 40px;
+    padding: 5px;
+    align-items: flex-end;
+}
+.header a{
+    max-width: 90px;
+    border: gold;
+    background: gold;
+    font-family: "Arial Black";
+    text-align: center;
+    text-decoration-color: azure;
+}
+.index_button a {
+    width: 100%;
+    height: 30px;
+    border: gold;
+    background: gold;
+    font-family: "Arial Black";
+    text-align: center;
+    text-decoration-color: azure;
+}

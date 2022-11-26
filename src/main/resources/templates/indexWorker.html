@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рабочая область</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="header">
+  <table th:action="@{/indexWorker}" th:object="*{user}">
+    <td th:field="*{worker.lastname}"></td>
+      <td th:field="*{login}"></td>
+      <td th:field="*{roles}"/>
+  </table>
+</div>
+ <div class="index_button">
+    <a th:href="@{/CreateGuest}">Создать гостя</a><br>
+    <a th:href="@{/ViewRooms}">Просмотр всех комнат</a><br>
+    <a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a><br>
+    <a th:href="@{/ViewGuest}">Просмотр всех гостей</a><br>
+    <a th:href="@{/ViewService}">Просмотр всех услуг</a><br>
+    <a th:href="@{/ViewReservation}">Просмотр всех броней</a><br>
+    <a th:href="@{/ViewWorkers}">Просмотр всех рабочих</a><br>
+    <a th:href="@{/ViewOrders}">Просмотр всех заказов</a><br>
+  </div>
+</body>
+</html>
