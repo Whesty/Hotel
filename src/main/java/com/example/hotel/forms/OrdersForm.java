@@ -1,6 +1,7 @@
 package com.example.hotel.forms;
 
 import com.example.hotel.model.Guest;
+import com.example.hotel.model.Room;
 import com.example.hotel.model.Service;
 import com.example.hotel.model.Worker;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ public class OrdersForm {
 
     int id; // Идентификатор
     Guest guest; // Гость сделавший заказ
+    Room room; // Номер в котором будет оказана услуга
     Service service; // номер
     Date date_orders; // Дата заказа
     Date date_service; // Дата обслуживания

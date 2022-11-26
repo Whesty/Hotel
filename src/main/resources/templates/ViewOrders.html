@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Список заказов</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<table>
+  <tr>
+    <th>Имя</th>
+    <th>Фамилия</th>
+    <th>Отчество</th>
+    <th>Дата рождения</th>
+    <th>Почта</th>
+    <th>Действия</th>
+  </tr>
+  <tr th:each="order : ${orders}">
+    <td th:text="${order.getId()}"></td>
+    <td th:text="${order.guest.fullName}"></td>
+    <td th:text="${order.getDate_orders()}"></td>
+    <td th:text="${order.getDate_service()}"></td>
+    <td th:text="${order.getWorker()}"></td>
+    <td th:text="${order.getService().service_name}"></td>
+    <td>
+      <a th:href="@{/EditOrders/{id}(id=${order.id})}">Изменить</a>
+      <a th:href="@{/DeleteOrders/{id}(id=${order.id})}">Удалить</a>
+      <a th:href="@{/SetWorker/{id}(id=${order.id})}">Услуга выполнена</a>
+
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -10,7 +10,10 @@
     <h1>Данные гостя</h1>
     <form th:action="@{/CreateOrders}"
           th:object="${ordersform}" method="post">
-
+        <p>Id гостя
+            <input type="text" th:field="*{guest.id}"/>
+        </p>
+        <input type="hidden" th:field="*{service}">
         <input class="button-main-page" type="submit" value="Add"/>
     </form>
 </div>
