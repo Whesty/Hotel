@@ -43,15 +43,15 @@ public class UserController {
     JwtUtils jwtUtils;
 
     private final WorkerServices workerServices;
+    public static User auth_user;
 
     public UserController(WorkerServices workerServices) {
         this.workerServices = workerServices;
     }
 
     @PostMapping("/signin")
-    public ModelAndView authUser(Model model, @ModelAttribute("userForm") UserForm userForm) {
+    public String authUser(Model model, @ModelAttribute("userForm") UserForm userForm) {
 
-ModelAndView modelAndView = new ModelAndView("indexWorker");
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(
                         userForm.getLogin(),
@@ -62,17 +62,38 @@ ModelAndView modelAndView = new ModelAndView("indexWorker");
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         String role = userDetails.getAuthorities().stream().findFirst().toString();
-        model.addAttribute("IdUser", userDetails.getId());
-        return modelAndView;
+        User user = userRespository.getById(userDetails.getId());
+        role = role.substring(8, role.length());
+        model.addAttribute("user", user);
+        auth_user = user;
+        model.addAttribute("role", role);
+        if (role.equals("[ROLE_ADMIN]")) {
+            return "redirect:/indexAdmin";
+        } else if (role.equals("[ROLE_WORKER]")) {
+            return "redirect:/indexWorker";
+        } else {
+            return "redirect:/index";
+        }
+    }
+    @GetMapping("/index")
+    public String index(Model model) {
+        return "index";
+    }
+    @GetMapping("/indexAdmin")
+    public String indexAdmin(Model model) {
+        model.addAttribute("user", auth_user);
+        return "indexAdmin";
     }
     @GetMapping("/indexWorker")
-    public ModelAndView WorkerAria(Model model, @ModelAttribute("IdUser") Integer idUser){
-        ModelAndView modelAndView = new ModelAndView("indexWorker");
-        User user = userRespository.getById(idUser);
-        model.addAttribute("user", user);
-        return modelAndView;
+    public String indexWorker(Model model) {
+        model.addAttribute("user", auth_user);
+        return "indexWorker";
     }
-
+    @GetMapping("/menu")
+    public String Menu(Model model) {
+        model.addAttribute("User", auth_user);
+        return "menu";
+    }
     @PostMapping("/signup")
     public ModelAndView registerUser(Model model, @ModelAttribute("signUpForm") UserForm signUpRequest) {
         signUpRequest.setRole("ROLE_WORKER");

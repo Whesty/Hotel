@@ -5,15 +5,16 @@
   <title>Регестрация</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
-<body>
+<body class="auth">
 <form th:action="@{/signup}" th:object="${signUpForm}" method="post">
   <div class="container">
+  <h1>Регистрация</h1>
     <label th:for="*{login}"><b>Имя пользователя</b></label>
-    <input type="text" placeholder="Введите имя пользователя" name="login" required>
-
+    <input type="text" placeholder=" Имя пользователя" name="login" required>
     <label th:for="*{password}"><b>Пароль</b></label>
-    <input type="password" placeholder="Введите пароль" name="password" required>
-    <input type="text" placeholder="Введите номер рабочего" name="worker_id" required>
+    <input type="password" placeholder="Пароль" name="password" required>
+    <label th:for="*{password}"><b>Id сотрудника</b></label>
+    <input type="text" placeholder="Id сотрудника" name="worker_id" required>
     <button type="submit">Зарегестрировать</button>
   </div>
 </form>

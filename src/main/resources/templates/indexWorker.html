@@ -13,15 +13,14 @@
       <td th:field="*{roles}"/>
   </table>
 </div>
- <div class="index_button">
-    <a th:href="@{/CreateGuest}">Создать гостя</a><br>
-    <a th:href="@{/ViewRooms}">Просмотр всех комнат</a><br>
-    <a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a><br>
-    <a th:href="@{/ViewGuest}">Просмотр всех гостей</a><br>
-    <a th:href="@{/ViewService}">Просмотр всех услуг</a><br>
-    <a th:href="@{/ViewReservation}">Просмотр всех броней</a><br>
-    <a th:href="@{/ViewWorkers}">Просмотр всех рабочих</a><br>
-    <a th:href="@{/ViewOrders}">Просмотр всех заказов</a><br>
-  </div>
+<ul class="border">
+    <li> <a th:href="@{/CreateGuest}">Создать гостя</a><br></li>
+    <li><a th:href="@{/ViewRooms}">Просмотр всех комнат</a></li>
+    <li><a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a></li>
+    <li><a th:href="@{/ViewGuest}">Просмотр всех гостей</a></li>
+    <li><a th:href="@{/ViewService}">Просмотр всех услуг</a></li>
+    <li><a th:href="@{/ViewReservation}">Просмотр всех броней</a></li>
+    <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
+</ul>
 </body>
 </html>

@@ -34,4 +34,8 @@ public class Role {
     public void setName(ERole name) {
         this.name = name;
     }
+    //toString
+    public String toString() {
+        return name.name();
+    }
 }

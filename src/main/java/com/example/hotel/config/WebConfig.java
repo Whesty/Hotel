@@ -4,6 +4,7 @@ import com.example.hotel.Security.UserDetailsServiceImpl;
 import com.example.hotel.config.jwt.AuthEntryPointJwt;
 import com.example.hotel.config.jwt.AuthTokenFilter;
 import com.example.hotel.controller.RoomController;
+import com.example.hotel.model.User;
 import com.example.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -30,6 +32,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 //Класс WebConfig реализует интерфейс WebMvcConfigurer, у которого есть
 //целая куча методов, и настывает все по своему вкусу.
 public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer  {
+
+
     @Bean
     public ClassLoaderTemplateResolver templateResolver() {
         var templateResolver = new ClassLoaderTemplateResolver();
@@ -118,16 +122,51 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 */
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
-//		http
-//		.authorizeRequests(authorizeRequests ->
-//				authorizeRequests
-//					.antMatchers("/board/*").hasAnyRole("MANAGER", "OPERATOR")
-//					.antMatchers("/members/*").hasRole("MANAGER")
-//					.antMatchers("/").permitAll())
-//		.httpBasic().realmName("org team")
-//		.and()
-//		.sessionManagement()
-//		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	http
+	.authorizeRequests(authorizeRequests ->
+				authorizeRequests
+				    .antMatchers("/indexAdmin/*").hasRole("ADMIN")
+					.antMatchers("/indexWorker/*").hasRole("WORKER")
+                        .antMatchers("/ViewGuest/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewOrders/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewReservation/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewRooms/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewServices/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewTypeRooms/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewUser/*").hasRole("ADMIN")
+                        .antMatchers("/ViewWorker/*").hasRole("ADMIN")
+                        .antMatchers("/ViewPayments/*").hasRole("ADMIN")
+                        .antMatchers("/CreateGuest/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/CreateOrders/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/CreateReservation/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/CreateRooms/*").hasRole("ADMIN")
+                        .antMatchers("/CreateServices/*").hasRole("ADMIN")
+                        .antMatchers("/CreateTypeRooms/*").hasRole("ADMIN")
+                        .antMatchers("/signup/*").hasRole("ADMIN")
+                        .antMatchers("/CreateWorker/*").hasRole("ADMIN")
+                        .antMatchers("/CreatePayments/*").hasRole("ADMIN")
+                        .antMatchers("/EditGuest/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/EditOrders/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/EditReservation/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/EditRooms/*").hasRole("ADMIN")
+                        .antMatchers("/EditServices/*").hasRole("ADMIN")
+                        .antMatchers("/EditTypeRooms/*").hasRole("ADMIN")
+                        .antMatchers("/EditUser/*").hasRole("ADMIN")
+                        .antMatchers("/EditWorker/*").hasRole("ADMIN")
+                        .antMatchers("/EditPayments/*").hasRole("ADMIN")
+                        .antMatchers("/DeleteOrders/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/DeleteReservation/*").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/DeleteRooms/*").hasRole("ADMIN")
+                        .antMatchers("/DeleteServices/*").hasRole("ADMIN")
+                        .antMatchers("/DeleteTypeRooms/*").hasRole("ADMIN")
+                        .antMatchers("/DeleteUser/*").hasRole("ADMIN")
+                        .antMatchers("/DeleteWorker/*").hasRole("ADMIN")
+                        .antMatchers("/DeletePayments/*").hasRole("ADMIN")
+					.antMatchers("/").permitAll())
+		.httpBasic().realmName("org team")
+		.and()
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
 

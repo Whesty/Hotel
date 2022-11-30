@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Рабочая область</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div class="header">
+    <table>
+        <td th:text="${user.worker.lastname}"></td>
+        <td th:text="${user.login}"></td>
+        <td th:text="${user.roles}"></td>
+    </table>
+</div>
+<div>
+    <ul class="border">
+        <li> <a th:href="@{/CreateGuest}">Создать гостя</a><br></li>
+        <li><a th:href="@{/ViewRooms}">Просмотр всех комнат</a></li>
+        <li><a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a></li>
+        <li><a th:href="@{/ViewGuest}">Просмотр всех гостей</a></li>
+        <li><a th:href="@{/ViewService}">Просмотр всех услуг</a></li>
+        <li><a th:href="@{/ViewReservation}">Просмотр всех броней</a></li>
+        <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
+        <li><a th:href="@{/ViewWorkers}">Просмотр всех рабочих</a></li>
+
+
+    </ul>
+</div>
+</body>
+</html>
