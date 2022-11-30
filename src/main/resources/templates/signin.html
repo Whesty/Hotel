@@ -7,12 +7,12 @@
 </head>
 <body>
 <form th:action="@{/signin}" th:object="${userForm}" method="post">
-    <div class="container">
-        <label th:for="*{login}"><b>Имя пользователя</b></label>
-        <input type="text" placeholder="Введите имя пользователя" name="login" required>
+    <div class="Auth">
+        <label th:for="*{login}"><b>Имя пользователя</b></label><br>
+        <input type="text" placeholder="Введите имя пользователя" name="login" required><br>
 
-        <label th:for="*{password}"><b>Пароль</b></label>
-        <input type="password" placeholder="Введите пароль" name="password" required>
+        <label th:for="*{password}"><b>Пароль</b></label><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
 
         <button type="submit">Войти</button>
     </div>
