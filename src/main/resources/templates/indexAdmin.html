@@ -23,9 +23,10 @@
         <li><a th:href="@{/ViewReservation}">Просмотр всех броней</a></li>
         <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
         <li><a th:href="@{/ViewWorkers}">Просмотр всех рабочих</a></li>
-
-
+        <li><a th:href="@{/ViewUsers}">Просмотр всех пользователей</a> </li>
     </ul>
 </div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;"></div>
 </body>
 </html>

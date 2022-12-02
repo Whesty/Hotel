@@ -16,4 +16,5 @@ public class UserForm {
     private String password;
     private String role;
     private int worker_id;
+    private int user_id;
 }

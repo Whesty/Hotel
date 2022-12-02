@@ -7,9 +7,23 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+<div class="menu-main">
+  <ul class="top-menu">
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li> <a th:href="@{/CreateGuest}">Создать гостя</a><br></li>
+    <li><a th:href="@{/ViewRooms}">Просмотр всех комнат</a></li>
+    <li><a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a></li>
+    <li><a th:href="@{/ViewGuest}">Просмотр всех гостей</a></li>
+    <li><a th:href="@{/ViewService}">Просмотр всех услуг</a></li>
+    <li><a th:href="@{/ViewReservation}">Просмотр всех броней</a></li>
+    <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
+  </ul>
+</div>s
 <h2>
   <a href="/CreateWorker">Создать рабочего</a>
 </h2>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;"></div>
 <table class="TableRoomType">
   <tr  th:each="worker : ${workers}">
     <td th:text="${worker.firstname}"></td>

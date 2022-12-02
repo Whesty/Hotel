@@ -7,10 +7,9 @@
 </head>
 <body>
 <div class="header">
-  <table th:action="@{/indexWorker}" th:object="*{user}">
+  <table th:action="@{/indexWorker}" th:object="${user}">
     <td th:field="*{worker.lastname}"></td>
       <td th:field="*{login}"></td>
-      <td th:field="*{roles}"/>
   </table>
 </div>
 <ul class="border">
@@ -22,5 +21,7 @@
     <li><a th:href="@{/ViewReservation}">Просмотр всех броней</a></li>
     <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
 </ul>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;"></div>
 </body>
 </html>

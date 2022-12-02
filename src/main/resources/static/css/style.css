@@ -38,7 +38,7 @@ img
 
 .MainAuth {
     width: 450px;
-    height: 450px;
+    height: 600px;
     background: #1F2833;
     border-radius: 10px;
     overflow: hidden;
@@ -256,3 +256,45 @@ input {
 .border li:nth-child(5):hover {border-right: 30px solid #940aef;}
 .border li:nth-child(6):hover {border-right: 30px solid #290aef;}
 .border li:nth-child(7):hover {border-right: 30px solid #ef0a0a;}
+
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    border-radius: 10px;
+    border-spacing: 0;
+    text-align: center;
+}
+th {
+    background: #1F2833;
+    color: white;
+    text-shadow: 0 1px 1px #2D2020;
+    padding: 10px 20px;
+}
+th, td {
+    border-style: solid;
+    border-width: 0 1px 1px 0;
+    border-color: #66FCF1;
+}
+th:first-child, td:first-child {
+    text-align: left;
+}
+th:first-child {
+    border-top-left-radius: 10px;
+}
+th:last-child {
+    border-top-right-radius: 10px;
+    border-right: none;
+}
+td {
+    padding: 10px 20px;
+    background: #0B0C10;
+}
+tr:last-child td:first-child {
+    border-radius: 0 0 0 10px;
+}
+tr:last-child td:last-child {
+    border-radius: 0 0 10px 0;
+}
+tr td:last-child {
+    border-right: none;
+}

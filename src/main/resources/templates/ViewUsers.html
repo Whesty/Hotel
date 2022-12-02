@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+
 <head>
   <meta charset="UTF-8">
-  <title>Список заказов</title>
+  <title>Список типов комнат</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -18,30 +19,18 @@
     <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
   </ul>
 </div>
+<h2>
+
+</h2>
 <div th:if="${errorMessage}" th:utext="${errorMessage}"
      style="color: red; font-style: italic;"></div>
 <table>
-  <tr>
-    <th>Имя</th>
-    <th>Фамилия</th>
-    <th>Отчество</th>
-    <th>Дата рождения</th>
-    <th>Почта</th>
-    <th>Действия</th>
-  </tr>
-  <tr th:each="order : ${orders}">
-    <td th:text="${order.getId()}"></td>
-    <td th:text="${order.guest.fullName}"></td>
-    <td th:text="${order.getDate_orders()}"></td>
-    <td th:text="${order.getDate_service()}"></td>
-    <td th:text="${order.getWorker()}"></td>
-    <td th:text="${order.getService().service_name}"></td>
-    <td>
-      <a th:href="@{/EditOrders/{id}(id=${order.id})}">Изменить</a>
-      <a th:href="@{/DeleteOrders/{id}(id=${order.id})}">Удалить</a>
-      <a th:href="@{/SetWorker/{id}(id=${order.id})}">Услуга выполнена</a>
-
-    </td>
+  <tr  th:each="user : ${userList}">
+    <td th:text="${user.login}"></td>
+    <td th:text="${user.roles}"/>
+    <td th:text="${user.worker}"/>
+    <td><a th:href="@{/EditUser/{id}(id=${user.id})}">Изменить</a></td>
+    <td><a th:href="@{/DeleteUser/{id}(id=${user.id})}">Удалить</a></td>
   </tr>
 </table>
 </body>

@@ -32,12 +32,17 @@ public class OrdersController {
 
     @GetMapping(value = {"/CreateOrders/{id}"})
     public ModelAndView CreateOrders(Model model, @PathVariable Integer id){
-        ModelAndView modelAndView = new ModelAndView("CreateOrders");
-        OrdersForm ordersForm = new OrdersForm();
-        ordersForm.setService(serviceServices.findService(id));
-        model.addAttribute("ordersform", ordersForm);
-        log.info("/CreateOrders was called");
-        return modelAndView;
+        try {
+            ModelAndView modelAndView = new ModelAndView("CreateOrders");
+            OrdersForm ordersForm = new OrdersForm();
+            ordersForm.setService(serviceServices.findService(id));
+            model.addAttribute("ordersform", ordersForm);
+            log.info("/CreateOrders was called");
+            return modelAndView;
+        } catch (Exception err){
+            model.addAttribute("errorMessage", err.getMessage());
+            return new ModelAndView("redirect:/ViewOrders");
+        }
     }
     @PostMapping(value = {"/CreateOrders"})
     public ModelAndView CreateOrders(Model model, OrdersForm ordersForm){
@@ -62,27 +67,37 @@ public class OrdersController {
     }
     @PostMapping(value = {"/SetWorker/{id}"})
     public ModelAndView SetWorker(Model model, @PathVariable int id){
-        ModelAndView modelAndView = new ModelAndView("ViewOrders");
-        Orders order = ordersServices.findOrders(id);
-        //Получить настоящую дату
-        Date date = new Date();
-        order.setDate_service(date);
-        //Установить работника
-        //order.setWorker(ThisUser.getWorker());
-        ordersServices.saveOrders(order);
-        log.info("/SetWorker was called");
-        return modelAndView;
+        try {
+            ModelAndView modelAndView = new ModelAndView("ViewOrders");
+            Orders order = ordersServices.findOrders(id);
+            //Получить настоящую дату
+            Date date = new Date();
+            order.setDate_service(date);
+            //Установить работника
+            //order.setWorker(ThisUser.getWorker());
+            ordersServices.saveOrders(order);
+            log.info("/SetWorker was called");
+            return modelAndView;
+        } catch (Exception err){
+            model.addAttribute("errorMessage", err.getMessage());
+            return new ModelAndView("redirect:/index");
+        }
     }
 
     //Изменить заказ
     @GetMapping(value = {"/EditOrders/{id}"})
     public ModelAndView EditOrders(Model model, @PathVariable Integer id){
-        ModelAndView modelAndView = new ModelAndView("EditOrders");
-        OrdersForm ordersForm = new OrdersForm();
-        ordersForm.setService(serviceServices.findService(id));
-        model.addAttribute("ordersform", ordersForm);
-        log.info("/EditOrders was called");
-        return modelAndView;
+        try {
+            ModelAndView modelAndView = new ModelAndView("EditOrders");
+            OrdersForm ordersForm = new OrdersForm();
+            ordersForm.setService(serviceServices.findService(id));
+            model.addAttribute("ordersform", ordersForm);
+            log.info("/EditOrders was called");
+            return modelAndView;
+        } catch (Exception err){
+            model.addAttribute("errorMessage", err.getMessage());
+            return new ModelAndView("redirect:/ViewOrders");
+        }
     }
     @PostMapping(value = {"/EditOrders"})
     public ModelAndView EditOrders(Model model, OrdersForm ordersForm){
@@ -100,8 +115,12 @@ public class OrdersController {
     @GetMapping(value = {"/DeleteOrders/{id}"})
     public ModelAndView DeleteOrders(Model model, @PathVariable Integer id){
         ModelAndView modelAndView = new ModelAndView("index");
+        try{
         ordersServices.deleteOrders(id);
         log.info("/DeleteOrders was called");
+        } catch (Exception err){
+            model.addAttribute("errorMessage", err.getMessage());
+        }
         return modelAndView;
     }
 }

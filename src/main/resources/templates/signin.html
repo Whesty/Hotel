@@ -20,7 +20,10 @@
         <button type="submit">Войти</button>
 
 </form>
+    <div th:if="${errorMessage}" th:utext="${errorMessage}"
+         style="color: red; font-style: italic;"></div>
 </div>
+
 </div>
 </body>
 </html>

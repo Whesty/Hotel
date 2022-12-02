@@ -13,9 +13,12 @@
         <li><a th:href="@{/about}">Комнаты</a></li>
         <li><a th:href="@{/contact}">Услуги</a></li>
         <li><a th:href="@{/signin}">Войти</a></li>
+        <li><a th:href="@{/signup}">Зарегестрироваться</a></li>
     </ul>
 </div>
 <h2>
 </h2>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;"></div>
 </body>
 </html>

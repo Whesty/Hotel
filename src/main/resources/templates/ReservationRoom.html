@@ -8,4 +8,6 @@
 <body>
 <h1> <a href="CreateGuest"> Добавить гостей </a> </h1>
 </body>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;"></div>
 </html>

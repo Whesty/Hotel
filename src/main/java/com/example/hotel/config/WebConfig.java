@@ -112,45 +112,52 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-       /* http.cors().and().csrf().disable()
+      /*  http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/api/test/**").permitAll()
-                .anyRequest().authenticated();
-*/
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
-	http
+                .antMatchers("/index/**").permitAll()
+                .anyRequest().authenticated();*/
+      //  http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http
+                .cors()
+                .and()
+                .csrf()
+                .disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
 	.authorizeRequests(authorizeRequests ->
 				authorizeRequests
-				    .antMatchers("/indexAdmin/*").hasRole("ADMIN")
-					.antMatchers("/indexWorker/*").hasRole("WORKER")
-                        .antMatchers("/ViewGuest/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/ViewOrders/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/ViewReservation/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/ViewRooms/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/ViewServices/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/ViewTypeRooms/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/ViewUser/*").hasRole("ADMIN")
-                        .antMatchers("/ViewWorker/*").hasRole("ADMIN")
-                        .antMatchers("/ViewPayments/*").hasRole("ADMIN")
-                        .antMatchers("/CreateGuest/*").hasAnyRole("ADMIN","WORKER")
+				    .antMatchers("/indexAdmin").hasRole("ADMIN")
+					.antMatchers("/indexWorker").hasRole("WORKER")
+                        .antMatchers("/ViewGuest").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewOrders").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewReservation").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewRooms").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewServices").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewTypeRooms").hasAnyRole("ADMIN","WORKER")
+                        .antMatchers("/ViewUser").hasRole("ADMIN")
+                        .antMatchers("/ViewWorker").hasRole("ADMIN")
+                        .antMatchers("/ViewPayments").hasRole("ADMIN")
+                        .antMatchers("/CreateGuest").hasAnyRole("ADMIN","WORKER")
                         .antMatchers("/CreateOrders/*").hasAnyRole("ADMIN","WORKER")
                         .antMatchers("/CreateReservation/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/CreateRooms/*").hasRole("ADMIN")
-                        .antMatchers("/CreateServices/*").hasRole("ADMIN")
-                        .antMatchers("/CreateTypeRooms/*").hasRole("ADMIN")
+                        .antMatchers("/CreateRoom").hasRole("ADMIN")
+                        .antMatchers("/CreateService").hasRole("ADMIN")
+                        .antMatchers("/CreateTypeRoom").hasRole("ADMIN")
                         .antMatchers("/signup/*").hasRole("ADMIN")
-                        .antMatchers("/CreateWorker/*").hasRole("ADMIN")
+                        .antMatchers("/CreateWorker").hasRole("ADMIN")
                         .antMatchers("/CreatePayments/*").hasRole("ADMIN")
                         .antMatchers("/EditGuest/*").hasAnyRole("ADMIN","WORKER")
                         .antMatchers("/EditOrders/*").hasAnyRole("ADMIN","WORKER")
                         .antMatchers("/EditReservation/*").hasAnyRole("ADMIN","WORKER")
-                        .antMatchers("/EditRooms/*").hasRole("ADMIN")
-                        .antMatchers("/EditServices/*").hasRole("ADMIN")
-                        .antMatchers("/EditTypeRooms/*").hasRole("ADMIN")
+                        .antMatchers("/EditRoom/*").hasRole("ADMIN")
+                        .antMatchers("/EditService/*").hasRole("ADMIN")
+                        .antMatchers("/EditTypeRoom/*").hasRole("ADMIN")
                         .antMatchers("/EditUser/*").hasRole("ADMIN")
                         .antMatchers("/EditWorker/*").hasRole("ADMIN")
                         .antMatchers("/EditPayments/*").hasRole("ADMIN")
@@ -166,7 +173,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
 		.httpBasic().realmName("org team")
 		.and()
 		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
     }
 
 

@@ -10,5 +10,7 @@
     <h2>Удаление комнату? Id = </h2> <input readonly th:field="*{id}">
     <input type="submit" value="Удалить"/>
 </form>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;"></div>
 </body>
 </html>

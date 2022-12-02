@@ -42,10 +42,14 @@ public class GuestController {
     ModelAndView modelAndView = new ModelAndView();
     modelAndView.setViewName("index");
     if (guestForm != null) {
-        log.info(createGuest(guestForm));
-        List<Guest> guests = guestServices.getGuests();
-        log.info("Guests: " + guests);
-        return modelAndView;
+        try {
+            log.info(createGuest(guestForm));
+            List<Guest> guests = guestServices.getGuests();
+            log.info("Guests: " + guests);
+            return modelAndView;
+        } catch (Exception err){
+            model.addAttribute("errorMessage", err.getMessage());
+        }
     }
     model.addAttribute("errorMessage", "Error");
     modelAndView.setViewName("CreateGuest");
@@ -77,12 +81,17 @@ public class GuestController {
 // Удаление гостя
     @GetMapping(value = {"/DeleteGuest/{id}"})
         public ModelAndView DeleteGuest(Model model, @PathVariable("id") int id){
+    try{
         ModelAndView modelAndView = new ModelAndView("DeleteGuest");
         GuestForm guestForm = new GuestForm();
         guestForm.setId(id);
         model.addAttribute("guestform", guestForm);
         log.info("/DeleteGuest was called");
-        return modelAndView;
+        return  modelAndView;
+    } catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+    }
+        return new ModelAndView("redirect:/ViewGuest");
     }
     @PostMapping(value = {"/DeleteGuest"})
         public ModelAndView DeleteGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm) {
@@ -91,10 +100,14 @@ public class GuestController {
         List<Guest> guests = guestServices.getGuests();
         int id = guestForm.getId();
         if (id > 0) {
-            guestServices.deleteGuest(id);
-            model.addAttribute("guests", guests);
-            log.info("Delete Guest");
-            return modelAndView;
+            try {
+                guestServices.deleteGuest(id);
+                model.addAttribute("guests", guests);
+                log.info("Delete Guest");
+                return modelAndView;
+            } catch (Exception err){
+                model.addAttribute("errorMessage", err.getMessage());
+            }
         }
         model.addAttribute("errorMessage", "Error");
         modelAndView.setViewName("DeleteGuest");
@@ -104,6 +117,7 @@ public class GuestController {
     //Изменение гостя
     @GetMapping(value = {"/EditGuest/{id}"})
         public ModelAndView UpdateGuest(Model model, @PathVariable("id") int id) {
+    try{
         ModelAndView modelAndView = new ModelAndView("EditGuest");
         GuestForm guestForm = new GuestForm();
         guestForm.setId(id);
@@ -116,6 +130,10 @@ public class GuestController {
         model.addAttribute("guestform", guestForm);
         log.info("/UpdateGuest was called");
         return modelAndView;
+    } catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+        return new ModelAndView("redirect:/ViewGuest");
+    }
     }
     @PostMapping(value = {"/EditGuest"})
         public ModelAndView UpdateGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm) {
@@ -132,11 +150,16 @@ public class GuestController {
                 && Firstname != null && Firstname.length() > 0 //
                 && Secendname != null && Secendname.length() > 0 //
                 && email != null && email.length() > 0) {
+            try{
             Guest newGuest = new Guest(id, Lastname, Firstname, Secendname, email, birthday);
             guestServices.updateGuest(newGuest);
             model.addAttribute("guests", guests);
             log.info("Update Guest");
             return modelAndView;
+            } catch (Exception err){
+                model.addAttribute("errorMessage", err.getMessage());
+                modelAndView.setViewName("EditGuest");
+            }
         }
         model.addAttribute("errorMessage", "Error");
         modelAndView.setViewName("EditGuest");
