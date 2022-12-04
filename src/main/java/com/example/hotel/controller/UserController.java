@@ -72,11 +72,9 @@ public class UserController {
         model.addAttribute("user", user);
         auth_user = user;
         model.addAttribute("role", role);
-        if (role.equals("[ROLE_ADMIN]")) {
+        if (role.equals("[ROLE_ADMIN]") || role.equals("[ROLE_WORKER]")) {
             return "redirect:/indexAdmin";
-        } else if (role.equals("[ROLE_WORKER]")) {
-            return "redirect:/indexWorker";
-        } else {
+        }  else {
             return "redirect:/index";
         }
     }
@@ -84,10 +82,8 @@ public class UserController {
     @GetMapping("/index")
     public String index(Model model) {
         if(auth_user != null) {
-            if (auth_user.getRoles().equals("[ROLE_ADMIN]")) {
+            if (auth_user.getRoles().equals("[ROLE_ADMIN]") || auth_user.getRoles().equals("[ROLE_WORKER]")) {
                 return "redirect:/indexAdmin";
-            } else if (auth_user.getRoles().equals("[ROLE_WORKER]")) {
-                return "redirect:/indexWorker";
             } else {
                 return "index";
             }
@@ -99,11 +95,7 @@ public class UserController {
         model.addAttribute("user", auth_user);
         return "indexAdmin";
     }
-    @GetMapping("/indexWorker")
-    public String indexWorker(Model model) {
-        model.addAttribute("user", auth_user);
-        return "indexWorker";
-    }
+
    /* @GetMapping("/menu")
     public String Menu(Model model) {
         model.addAttribute("User", auth_user);

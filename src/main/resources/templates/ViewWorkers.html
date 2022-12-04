@@ -7,9 +7,9 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div class="menu-main">
-  <ul class="top-menu">
-    <li><a th:href="@{/index}">Главная</a></li>
+<div class="top-menu">
+  <ul class="menu-main">
+    <li><a th:href="@{/indexAdmin}">Главная</a></li>
     <li> <a th:href="@{/CreateGuest}">Создать гостя</a><br></li>
     <li><a th:href="@{/ViewRooms}">Просмотр всех комнат</a></li>
     <li><a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a></li>
@@ -20,7 +20,7 @@
   </ul>
 </div>s
 <h2>
-  <a href="/CreateWorker">Создать рабочего</a>
+  <a href="/CreateWorker">Создать рабочего<p class="pAdmin">(Admin)</p></a>
 </h2>
 <div th:if="${errorMessage}" th:utext="${errorMessage}"
      style="color: red; font-style: italic;"></div>
@@ -33,8 +33,8 @@
     <td th:text="${worker.email}"></td>
     <td th:text="${worker.phone}"></td>
     <td th:text="${worker.experience}"></td>
-    <td><a th:href="@{/EditWorker/{id}(id=${worker.id})}">Изменить</a></td>
-    <td><a th:href="@{/DeleteWorker/{id}(id=${worker.id})}">Удалить</a></td>
+    <td><a th:href="@{/EditWorker/{id}(id=${worker.id})}">Изменит<p class="pAdmin">(Admin)</p></a></td>
+    <td><a th:href="@{/DeleteWorker/{id}(id=${worker.id})}">Удалить<p class="pAdmin">(Admin)</p></a></td>
   </tr>
 </table>
 </body>

@@ -132,8 +132,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
                 .and()
 	.authorizeRequests(authorizeRequests ->
 				authorizeRequests
-				    .antMatchers("/indexAdmin").hasRole("ADMIN")
-					.antMatchers("/indexWorker").hasRole("WORKER")
+				    .antMatchers("/indexAdmin").hasAnyRole("ADMIN", "WORKER")
                         .antMatchers("/ViewGuest").hasAnyRole("ADMIN","WORKER")
                         .antMatchers("/ViewOrders").hasAnyRole("ADMIN","WORKER")
                         .antMatchers("/ViewReservation").hasAnyRole("ADMIN","WORKER")

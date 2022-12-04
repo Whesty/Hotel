@@ -8,9 +8,9 @@
 <body>
 
 <h2>
-  <div class="menu-main">
-    <ul class="top-menu">
-      <li><a th:href="@{/index}">Главная</a></li>
+  <div class="top-menu">
+    <ul class="menu-main">
+      <li><a th:href="@{/indexAdmin}">Главная</a></li>
       <li> <a th:href="@{/CreateGuest}">Создать гостя</a><br></li>
       <li><a th:href="@{/ViewRooms}">Просмотр всех комнат</a></li>
       <li><a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a></li>
@@ -20,7 +20,7 @@
       <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
     </ul>
   </div>
-  <a th:href="@{/CreateRoom}">Создать комнату</a>
+  <a th:href="@{/CreateRoom}">Создать комнату<p class="pAdmin">(Admin)</p></a>
 </h2>
 <div th:if="${errorMessage}" th:utext="${errorMessage}"
      style="color: red; font-style: italic;"></div>
@@ -40,8 +40,8 @@
     <td th:text="${room.getType_rooms.name_type}"></td>
     <td th:text="${room.getType_rooms.info}"></td>
     <td>
-      <a th:href="@{/EditRoom/{id}(id=${room.id})}">Изменить</a>
-      <a th:href="@{/DeleteRoom/{id}(id=${room.id})}">Удалить</a>
+      <a th:href="@{/EditRoom/{id}(id=${room.id})}">Изменить<p class="pAdmin">(Admin)</p></a>
+      <a th:href="@{/DeleteRoom/{id}(id=${room.id})}">Удалить<p class="pAdmin">(Admin)</p></a>
     </td>
   </tr>
   </table>

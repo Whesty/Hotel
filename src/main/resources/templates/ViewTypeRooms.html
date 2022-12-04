@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div class="menu-main">
-    <ul class="top-menu">
-        <li><a th:href="@{/index}">Главная</a></li>
+<div class="top-menu">
+    <ul class="menu-main">
+        <li><a th:href="@{/indexAdmin}">Главная</a></li>
         <li> <a th:href="@{/CreateGuest}">Создать гостя</a><br></li>
         <li><a th:href="@{/ViewRooms}">Просмотр всех комнат</a></li>
         <li><a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a></li>
@@ -20,7 +20,7 @@
     </ul>
 </div>
 <h2>
-    <a href="/CreateTypeRoom">Создать тип комнаты</a>
+    <a href="/CreateTypeRoom">Создать тип комнаты<p class="pAdmin">(Admin)</p></a>
 </h2>
 <div th:if="${errorMessage}" th:utext="${errorMessage}"
      style="color: red; font-style: italic;"></div>
@@ -32,8 +32,8 @@
         <td>
             <img th:src="@{/images/typerooms/{id}.jpg(id=${typeroom.id})}" alt="typeroom"/>
         </td>
-        <td><a th:href="@{/EditTypeRoom/{id}(id=${typeroom.id})}">Изменить</a></td>
-        <td><a th:href="@{/DeleteTypeRoom/{id}(id=${typeroom.id})}">Удалить</a></td>
+        <td><a th:href="@{/EditTypeRoom/{id}(id=${typeroom.id})}">Изменить<p class="pAdmin">(Admin)</p></a></td>
+        <td><a th:href="@{/DeleteTypeRoom/{id}(id=${typeroom.id})}">Удалить<p class="pAdmin">(Admin)</p></a></td>
     </tr>
 </table>
 </body>

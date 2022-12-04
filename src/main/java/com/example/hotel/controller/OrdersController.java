@@ -2,16 +2,15 @@ package com.example.hotel.controller;
 
 import com.example.hotel.forms.OrdersForm;
 import com.example.hotel.model.Orders;
+import com.example.hotel.model.Worker;
 import com.example.hotel.services.GuestServices;
 import com.example.hotel.services.OrdersServices;
 import com.example.hotel.services.ServiceServices;
+import com.example.hotel.services.WorkerServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
@@ -23,11 +22,13 @@ public class OrdersController {
     private final OrdersServices ordersServices;
     private final ServiceServices serviceServices;
     private final GuestServices guestServices;
+    private final WorkerServices workerServices;
 
-    public OrdersController(OrdersServices ordersServices, ServiceServices serviceServices, GuestServices guestServices) {
+    public OrdersController(OrdersServices ordersServices, ServiceServices serviceServices, GuestServices guestServices, WorkerServices workerServices) {
         this.ordersServices = ordersServices;
         this.serviceServices = serviceServices;
         this.guestServices = guestServices;
+        this.workerServices = workerServices;
     }
 
     @GetMapping(value = {"/CreateOrders/{id}"})
@@ -58,15 +59,16 @@ public class OrdersController {
         log.info("/CreateOrders was called");
         return modelAndView;
     }
-    @GetMapping(value = {"/ViewOrders"})
-    public ModelAndView ViewOrders(Model model){
+    @GetMapping(value = {"/ViewOrders/{id}"})
+    public ModelAndView ViewOrders(Model model, @PathVariable int id){
         ModelAndView modelAndView = new ModelAndView("ViewOrders");
         model.addAttribute("orders", ordersServices.getOrders());
+        model.addAttribute("worker", workerServices.findById(id));
         log.info("/ViewOrders was called");
         return modelAndView;
     }
     @PostMapping(value = {"/SetWorker/{id}"})
-    public ModelAndView SetWorker(Model model, @PathVariable int id){
+    public ModelAndView SetWorker(Model model, @PathVariable int id, @ModelAttribute("worker") Worker worker){
         try {
             ModelAndView modelAndView = new ModelAndView("ViewOrders");
             Orders order = ordersServices.findOrders(id);
@@ -74,7 +76,7 @@ public class OrdersController {
             Date date = new Date();
             order.setDate_service(date);
             //Установить работника
-            //order.setWorker(ThisUser.getWorker());
+            order.setWorker(worker);
             ordersServices.saveOrders(order);
             log.info("/SetWorker was called");
             return modelAndView;

@@ -7,9 +7,9 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<div class="menu-main">
-  <ul class="top-menu">
-    <li><a th:href="@{/index}">Главная</a></li>
+<div class="top-menu">
+  <ul class="menu-main">
+    <li><a th:href="@{/indexAdmin}">Главная</a></li>
     <li> <a th:href="@{/CreateGuest}">Создать гостя</a><br></li>
     <li><a th:href="@{/ViewRooms}">Просмотр всех комнат</a></li>
     <li><a th:href="@{/ViewTypeRooms}">Просмотр всех типов комнат</a></li>
@@ -29,8 +29,7 @@
     <td th:text="${user.login}"></td>
     <td th:text="${user.roles}"/>
     <td th:text="${user.worker}"/>
-    <td><a th:href="@{/EditUser/{id}(id=${user.id})}">Изменить</a></td>
-    <td><a th:href="@{/DeleteUser/{id}(id=${user.id})}">Удалить</a></td>
+    <td><a th:href="@{/DeleteUser/{id}(id=${user.id})}">Удалить<p class="pAdmin">(Admin)</p></a></td>
   </tr>
 </table>
 </body>

@@ -21,9 +21,9 @@
         <li><a th:href="@{/ViewGuest}">Просмотр всех гостей</a></li>
         <li><a th:href="@{/ViewService}">Просмотр всех услуг</a></li>
         <li><a th:href="@{/ViewReservation}">Просмотр всех броней</a></li>
-        <li><a th:href="@{/ViewOrders}">Просмотр всех заказов</a></li>
-        <li><a th:href="@{/ViewWorkers}">Просмотр всех рабочих</a></li>
-        <li><a th:href="@{/ViewUsers}">Просмотр всех пользователей</a> </li>
+        <li><a th:href="@{/ViewOrders/{id}(id=${user.worker.id})}">Просмотр всех заказов</a></li>
+        <li><a th:href="@{/ViewWorkers}">Просмотр всех рабочих<p class="pAdmin">(Admin)</p></a></li>
+        <li><a th:href="@{/ViewUsers}">Просмотр всех пользователей<p class="pAdmin">(Admin)</p></a> </li>
     </ul>
 </div>
 <div th:if="${errorMessage}" th:utext="${errorMessage}"
