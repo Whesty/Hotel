@@ -1,6 +1,7 @@
 package com.example.hotel.controller;
 import com.example.hotel.forms.WorkerForm;
 import com.example.hotel.model.Worker;
+import com.example.hotel.services.EmailSenderService;
 import com.example.hotel.services.WorkerServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,8 +17,10 @@ import java.util.List;
 @ComponentScan("com.example.hotel.repository")
 public class WorkerController {
     public final WorkerServices workerServices;
-    public WorkerController(WorkerServices workerServices) {
+    public final EmailSenderService emailSenderService;
+    public WorkerController(WorkerServices workerServices, EmailSenderService emailSenderService) {
         this.workerServices = workerServices;
+        this.emailSenderService = emailSenderService;
     }
     @GetMapping("/ViewWorkers")
     public ModelAndView workers(ModelAndView modelAndView){
@@ -40,6 +43,7 @@ public class WorkerController {
             Worker newWorker = workerForm.toWorker();
             workerServices.save(newWorker);
         }
+        emailSenderService.sendSimpleEmail(workerForm.getEmail(),"New worker", "Вы были добавленны как новый сотрудник");
         modelAndView.setViewName("ViewWorkers");
         modelAndView.addObject("workers", workerServices.findAll());
         return modelAndView;

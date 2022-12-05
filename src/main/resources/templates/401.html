@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Главная</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+  <script type="text/javascript" th:src="@{/Script.js}"></script>
+</head>
+<body>
+<div class="top-menu">
+  <ul class="menu-main">
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li><a th:href="@{/about}">Комнаты</a></li>
+    <li><a th:href="@{/contact}">Услуги</a></li>
+    <li><a th:href="@{/signin}">Войти</a></li>
+    <li><a th:href="@{/signup}">Зарегестрироваться</a></li>
+  </ul>
+</div>
+<h2>
+</h2>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red; font-style: italic;"></div>
+</body>
+</html>

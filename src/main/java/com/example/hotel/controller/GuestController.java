@@ -4,7 +4,9 @@ package com.example.hotel.controller;
  * */
 
 import com.example.hotel.forms.GuestForm;
+import com.example.hotel.model.ERole;
 import com.example.hotel.model.Guest;
+import com.example.hotel.services.ErrorServices;
 import com.example.hotel.services.GuestServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,7 @@ import java.util.List;
 @RequestMapping
 public class GuestController {
     // Список гостей
-
+    ErrorServices errorServices = new ErrorServices();
     private final GuestServices guestServices;
 
     public GuestController(GuestServices guestServices) {
@@ -30,31 +32,42 @@ public class GuestController {
     /*  private static List<Guest> guests = new ArrayList<Guest>();*/
 
 @GetMapping(value = {"/CreateGuest"})
-    public ModelAndView SaveGuest(Model model){
+    public ModelAndView SaveGuest(Model model) {
+    try{
     ModelAndView modelAndView = new ModelAndView("CreateGuest");
     GuestForm guestForm = new GuestForm();
     model.addAttribute("guestform", guestForm);
     log.info("/CreateGuest was called");
     return modelAndView;
+    }
+    catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+        return new ModelAndView("redirect:/index");
+    }
 }
 @PostMapping(value = {"/CreateGuest"})
-    public ModelAndView SaveGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm){
-    ModelAndView modelAndView = new ModelAndView();
-    modelAndView.setViewName("index");
-    if (guestForm != null) {
-        try {
-            log.info(createGuest(guestForm));
-            List<Guest> guests = guestServices.getGuests();
-            log.info("Guests: " + guests);
-            return modelAndView;
-        } catch (Exception err){
-            model.addAttribute("errorMessage", err.getMessage());
+    public ModelAndView SaveGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm) {
+    try {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        if (guestForm != null) {
+            try {
+                log.info(createGuest(guestForm));
+                List<Guest> guests = guestServices.getGuests();
+                log.info("Guests: " + guests);
+                return modelAndView;
+            } catch (Exception err) {
+                model.addAttribute("errorMessage", err.getMessage());
+            }
         }
+        model.addAttribute("errorMessage", "Error");
+        modelAndView.setViewName("CreateGuest");
+        log.info("/CreateGuest was called");
+        return modelAndView;
+    }catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+        return new ModelAndView("redirect:/index");
     }
-    model.addAttribute("errorMessage", "Error");
-    modelAndView.setViewName("CreateGuest");
-    log.info("/CreateGuest was called");
-    return modelAndView;
 }
 
 //Функция для создания гостя
@@ -91,10 +104,11 @@ public class GuestController {
     } catch (Exception err){
         model.addAttribute("errorMessage", err.getMessage());
     }
-        return new ModelAndView("redirect:/ViewGuest");
+        return new ModelAndView("redirect:/index");
     }
     @PostMapping(value = {"/DeleteGuest"})
-        public ModelAndView DeleteGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm) {
+        public ModelAndView DeleteGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm){
+    try {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         List<Guest> guests = guestServices.getGuests();
@@ -105,7 +119,7 @@ public class GuestController {
                 model.addAttribute("guests", guests);
                 log.info("Delete Guest");
                 return modelAndView;
-            } catch (Exception err){
+            } catch (Exception err) {
                 model.addAttribute("errorMessage", err.getMessage());
             }
         }
@@ -113,6 +127,9 @@ public class GuestController {
         modelAndView.setViewName("DeleteGuest");
         log.info("/DeleteGuest was called");
         return modelAndView;
+    }catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+        return new ModelAndView("redirect:/index");}
     }
     //Изменение гостя
     @GetMapping(value = {"/EditGuest/{id}"})
@@ -132,11 +149,12 @@ public class GuestController {
         return modelAndView;
     } catch (Exception err){
         model.addAttribute("errorMessage", err.getMessage());
-        return new ModelAndView("redirect:/ViewGuest");
+        return new ModelAndView("redirect:/index");
     }
     }
     @PostMapping(value = {"/EditGuest"})
         public ModelAndView UpdateGuest(Model model, @ModelAttribute("guestform") GuestForm guestForm) {
+    try {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");
         List<Guest> guests = guestServices.getGuests();
@@ -150,13 +168,13 @@ public class GuestController {
                 && Firstname != null && Firstname.length() > 0 //
                 && Secendname != null && Secendname.length() > 0 //
                 && email != null && email.length() > 0) {
-            try{
-            Guest newGuest = new Guest(id, Lastname, Firstname, Secendname, email, birthday);
-            guestServices.updateGuest(newGuest);
-            model.addAttribute("guests", guests);
-            log.info("Update Guest");
-            return modelAndView;
-            } catch (Exception err){
+            try {
+                Guest newGuest = new Guest(id, Lastname, Firstname, Secendname, email, birthday);
+                guestServices.updateGuest(newGuest);
+                model.addAttribute("guests", guests);
+                log.info("Update Guest");
+                return modelAndView;
+            } catch (Exception err) {
                 model.addAttribute("errorMessage", err.getMessage());
                 modelAndView.setViewName("EditGuest");
             }
@@ -165,27 +183,40 @@ public class GuestController {
         modelAndView.setViewName("EditGuest");
         log.info("/UpdateGuest was called");
         return modelAndView;
-    }
+    }catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+        return new ModelAndView("redirect:/index");
+    }}
     //Список гостей
     @GetMapping(value = {"/ViewGuest"})
-        public ModelAndView GuestList(Model model) {
-        ModelAndView modelAndView = new ModelAndView("ViewGuest");
-        List<Guest> guests = guestServices.getGuests();
-        model.addAttribute("guests", guests);
-        log.info("/ViewGuest was called");
-        return modelAndView;
+        public ModelAndView GuestList(Model model){
+        try {
+            ModelAndView modelAndView = new ModelAndView("ViewGuest");
+            List<Guest> guests = guestServices.getGuests();
+            model.addAttribute("guests", guests);
+            log.info("/ViewGuest was called");
+            return modelAndView;
+        }catch (Exception err){
+            model.addAttribute("errorMessage", err.getMessage());
+            return new ModelAndView("redirect:/index");
+        }
     }
     //Создать гостя в Reservation
     @GetMapping(value = {"/CreateGuestReservation"})
-        public ModelAndView SaveGuestReservation(Model model){
+        public ModelAndView SaveGuestReservation(Model model) {
+    try {
         ModelAndView modelAndView = new ModelAndView("CreateGuestReservation");
         GuestForm guestForm = new GuestForm();
         model.addAttribute("guestform", guestForm);
         log.info("/CreateGuestReservation was called");
         return modelAndView;
+    }catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+        return new ModelAndView("redirect:/index");}
     }
     @PostMapping(value = {"/CreateGuestReservation"})
-        public ModelAndView SaveGuestReservation(Model model, @ModelAttribute("guestform") GuestForm guestForm){
+        public ModelAndView SaveGuestReservation(Model model, @ModelAttribute("guestform") GuestForm guestForm)  {
+    try {
         ModelAndView modelAndView = new ModelAndView();
         if (guestForm != null) {
             log.info(createGuest(guestForm));
@@ -197,6 +228,10 @@ public class GuestController {
         modelAndView.setViewName("CreateReservation");
         log.info("/CreateGuestReservation was called");
         return modelAndView;
+    }catch (Exception err){
+        model.addAttribute("errorMessage", err.getMessage());
+        return new ModelAndView("redirect:/index");}
     }
+
 
 }

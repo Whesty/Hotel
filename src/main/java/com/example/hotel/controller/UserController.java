@@ -7,10 +7,10 @@ import com.example.hotel.model.ERole;
 import com.example.hotel.model.Role;
 import com.example.hotel.model.User;
 import com.example.hotel.model.Worker;
+import com.example.hotel.services.EmailSenderService;
 import com.example.hotel.services.WorkerServices;
 import com.example.hotel.repository.RoleRepository;
 import com.example.hotel.repository.UserRepository;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,15 +41,16 @@ public class UserController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    private final EmailSenderService emailSenderService;
 
     @Autowired
     JwtUtils jwtUtils;
 
     private final WorkerServices workerServices;
-    @Autowired
-    public static User auth_user;
+    User auth_user;
 
-    public UserController(WorkerServices workerServices) {
+    public UserController(EmailSenderService emailSenderService, WorkerServices workerServices) {
+        this.emailSenderService = emailSenderService;
         this.workerServices = workerServices;
     }
 
@@ -65,14 +66,17 @@ public class UserController {
         String jwt = jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-
+        System.out.println(userDetails.getUsername());
+        System.out.println(userDetails.getId());
+        System.out.println(SecurityContextHolder.getContext());
         String role = userDetails.getAuthorities().stream().findFirst().toString();
         User user = userRespository.getById(userDetails.getId());
         role = role.substring(8, role.length());
         model.addAttribute("user", user);
         auth_user = user;
+        //emailSenderService.sendSimpleEmail(user.getWorker().getEmail(), "Вход в систему", "Вы успешно вошли в систему");
         model.addAttribute("role", role);
-        if (role.equals("[ROLE_ADMIN]") || role.equals("[ROLE_WORKER]")) {
+        if (role.equals("[ADMIN]") || role.equals("[WORKER]")) {
             return "redirect:/indexAdmin";
         }  else {
             return "redirect:/index";
@@ -82,7 +86,7 @@ public class UserController {
     @GetMapping("/index")
     public String index(Model model) {
         if(auth_user != null) {
-            if (auth_user.getRoles().equals("[ROLE_ADMIN]") || auth_user.getRoles().equals("[ROLE_WORKER]")) {
+            if (auth_user.getRoles().equals("[ADMIN]") || auth_user.getRoles().equals("[WORKER]")) {
                 return "redirect:/indexAdmin";
             } else {
                 return "index";
@@ -90,8 +94,20 @@ public class UserController {
         }
         return "index";
     }
+    @GetMapping("/logouT")
+    public String logout(Model model) {
+        auth_user = null;
+        SecurityContextHolder.clearContext();
+        Authentication authentication = authenticationManager
+                .authenticate(new UsernamePasswordAuthenticationToken(
+                        "GUEST",
+                        "GUEST"));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/index";
+    }
     @GetMapping("/indexAdmin")
     public String indexAdmin(Model model) {
+        System.out.println(SecurityContextHolder.getContext());
         model.addAttribute("user", auth_user);
         return "indexAdmin";
     }
@@ -116,10 +132,10 @@ public class UserController {
         if(worker != null){
 
         if(worker.getPosition().equals("Admin")){
-            signUpRequest.setRole("ROLE_ADMIN");
+            signUpRequest.setRole("ADMIN");
         }
-        else signUpRequest.setRole("ROLE_WORKER");
-        }else signUpRequest.setRole("ROLE_GUEST");
+        else signUpRequest.setRole("WORKER");
+        }else signUpRequest.setRole("GUEST");
         if (userRespository.existsByLogin(signUpRequest.getLogin())) {
             model.addAttribute("errorMessage", "Такого рабочего не существует");
             return modelAndView2;
@@ -133,16 +149,16 @@ public class UserController {
 
 
                 switch (signUpRequest.getRole()) {
-                    case "ROLE_ADMIN":
+                    case "ADMIN":
                         Role adminRole = roleRepository
-                                .findByName(ERole.ROLE_ADMIN)
+                                .findByName(ERole.ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error, Role ADMIN is not found"));
                         roles.add(adminRole);
 
                         break;
-                    case "ROLE_WORKER":
+                    case "WORKER":
                         Role modRole = roleRepository
-                                .findByName(ERole.ROLE_WORKER)
+                                .findByName(ERole.WORKER)
                                 .orElseThrow(() -> new RuntimeException("Error, Role WORKER is not found"));
                         roles.add(modRole);
 
@@ -150,7 +166,7 @@ public class UserController {
 
                     default:
                         Role userRole = roleRepository
-                                .findByName(ERole.ROLE_GUEST)
+                                .findByName(ERole.GUEST)
                                 .orElseThrow(() -> new RuntimeException("Error, Role GUEST is not found"));
                         roles.add(userRole);
 
@@ -160,7 +176,7 @@ public class UserController {
         userRespository.save(user);
         return  modelAndView;}
         catch (Exception err){
-            modelAndView2.addObject("errorMessage", "Такого пользователя не существует");
+            modelAndView2.addObject("errorMessage", err.getMessage());
             return modelAndView2;
         }
     }
