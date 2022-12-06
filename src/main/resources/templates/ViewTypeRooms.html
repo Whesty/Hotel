@@ -30,7 +30,7 @@
         <td th:text="${typeroom.info}"/>
         <td th:text="${typeroom.price}"/>
         <td>
-            <img th:src="@{/images/typerooms/{id}.jpg(id=${typeroom.id})}" alt="typeroom"/>
+            <img th:src="@{/images/{id}.jpg(id=${typeroom.id})}" alt="typeroom"/>
         </td>
         <td><a th:href="@{/EditTypeRoom/{id}(id=${typeroom.id})}">Изменить<p class="pAdmin">(Admin)</p></a></td>
         <td><a th:href="@{/DeleteTypeRoom/{id}(id=${typeroom.id})}">Удалить<p class="pAdmin">(Admin)</p></a></td>

@@ -127,8 +127,8 @@ public class WebConfig extends WebSecurityConfigurerAdapter implements WebMvcCon
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println(SecurityContextHolder.getContext().getAuthentication());
-        //http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-        http.cors().and().csrf().disable()
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        http
 	.authorizeRequests(authorizeRequests ->
 			authorizeRequests
 //				    .antMatchers("/indexAdmin/**").hasAnyRole("ADMIN", "WORKER")

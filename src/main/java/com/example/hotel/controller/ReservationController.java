@@ -74,6 +74,15 @@ public class ReservationController {
     public ModelAndView CreateReservation(ReservationForm reservationForm){
         Reservation reservation = toReservation(reservationForm);
         //reservation.setRoom(getFreeRoom(reservationForm.getType_room_id(), reservation.getDate_in(), reservation.getDate_out()));
+        if(reservation.getRoom() == null){
+            ModelAndView modelAndView = new ModelAndView("CreateReservation");
+            modelAndView.addObject("reservationform", reservationForm);
+            List<TypeRoom> typeRooms = typeRoomServices.getTypeRooms();
+            modelAndView.addObject("typeroomList", typeRooms);
+            modelAndView.addObject("error", "Нет свободных комнат");
+            log.info("/CreateReservation was called");
+            return modelAndView;
+        }
         reservationServices.save(reservation);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("index");

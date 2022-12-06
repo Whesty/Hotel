@@ -43,7 +43,7 @@ public class WorkerController {
             Worker newWorker = workerForm.toWorker();
             workerServices.save(newWorker);
         }
-        emailSenderService.sendSimpleEmail(workerForm.getEmail(),"New worker", "Вы были добавленны как новый сотрудник");
+        //emailSenderService.sendSimpleEmail(workerForm.getEmail(),"New worker", "Вы были добавленны как новый сотрудник");
         modelAndView.setViewName("ViewWorkers");
         modelAndView.addObject("workers", workerServices.findAll());
         return modelAndView;
